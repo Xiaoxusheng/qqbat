@@ -5,7 +5,7 @@ const schedule_scheduleJob=require("./schedule_scheduleJob")
 const fs = require("fs")
 exports.receive = (data) => {
     if (data.message_type === "undefined" || data.message === "undefined") {
-        schedule_scheduleJob.schedule()
+        schedule_scheduleJob.schedule(data.user_id)
         return
     }
     //戳一戳
