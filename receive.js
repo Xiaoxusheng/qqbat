@@ -1,10 +1,11 @@
 const send = require("./qqbat")
 const sendmessage = require("./send")
 const read = require("./aready")
+const schedule_scheduleJob=require("./schedule_scheduleJob")
 const fs = require("fs")
 exports.receive = (data) => {
     if (data.message_type === "undefined" || data.message === "undefined") {
-
+        schedule_scheduleJob.schedule()
         return
     }
     //戳一戳
@@ -17,7 +18,7 @@ exports.receive = (data) => {
         //已读消息
         read.read(data.message_id)
         let status = fs.readFileSync("./QQbat/status.txt").toString()
-        let list = [f, img, chat, t]
+        let list = ["f", "img", "chat", "t", "y","h"]
         let model = true
         if (status) {
             while (model) {
@@ -61,6 +62,12 @@ exports.receive = (data) => {
                     }
                     send.hotmessage(data.message_type, data.user_id)
                     break
+                case "h":
+                    if (data.message === status) {
+                        return;
+                    }
+                    schedule_scheduleJob.setTime(data.message_typ,data.message,data.user_id)
+                    break
                 // default:
                 //     sendmessage.SendMessage(data.message_type,
                 //         "模式已选择:" +
@@ -73,7 +80,7 @@ exports.receive = (data) => {
             if (!list.includes(data.message)) {
                 sendmessage.SendMessage(data.message_type, "[CQ:record,file=http://39.98.40.255:3000/img/1.mp3]", data.user_id)
                 sendmessage.SendMessage(data.message_type, "输入的不对呦，靓仔", data.user_id)
-                sendmessage.SendMessage(data.message_type, "[CQ:at,qq=" + data.user_id + "]" + "\n" + "请选择：" + "\n" + "重置模式: (y)" + "\n" + "天气模式：(t 例：武汉的天气)" + "\n" + "聊天模式：(chat)" + "\n" + "图片模式: (img)" + "\n" + "今日新闻：(f) " + "\n" + "(y,t,chat,img 全局生效)\n"
+                sendmessage.SendMessage(data.message_type, "[CQ:at,qq=" + data.user_id + "]" + "\n" + "请选择：" + "\n" + "重置模式: (y)" + "\n" + "天气模式：(t 例：武汉的天气)" + "\n" + "聊天模式：(chat)" + "\n" + "图片模式: (img)" + "\n" + "今日新闻：(f) " + "\n" + "消息推送：(h 例 12,4,3096407768,早早早) " +"\n" + "(y,t,chat,img 全局生效)\n"
 
                     , data.user_id)
                 fs.writeFileSync("./QQbat/status.txt", "")

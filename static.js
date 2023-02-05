@@ -4,7 +4,8 @@ const app = express()
 
 
 app.use("/img", express.static(path.join(__dirname, "/")));
-
+str="12,34,lll,d"
+console.log(str)
 
 console.log(path.join(__dirname, "/"))
 app.listen(3000, (req, reqs) => {
