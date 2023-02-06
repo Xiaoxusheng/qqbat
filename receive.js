@@ -66,7 +66,7 @@ exports.receive = (data) => {
                     if (data.message === status) {
                         return;
                     }
-                    schedule_scheduleJob.setTime(data.message_typ,data.message,data.user_id)
+                    schedule_scheduleJob.setTime(data.message_type,data.message,data.user_id)
                     break
                 // default:
                 //     sendmessage.SendMessage(data.message_type,
