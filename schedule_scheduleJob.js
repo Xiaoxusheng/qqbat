@@ -36,7 +36,7 @@ exports.setTime = (types, res, id) => {
               id: id
 
           }
-          fs.writeFileSync("./QQbat/time.json", JSON.stringify(data))
+          fs.writeFileSync("time.json", JSON.stringify(data))
           sendmessage.SendMessage(types, "设置成功了，靓仔", id,)
       } else {
           sendmessage.SendMessage(types, "输入时间格式不对", id,)
@@ -44,7 +44,7 @@ exports.setTime = (types, res, id) => {
   }catch (e) {
       if(e){
           sendmessage.SendMessage(types, "输入的,不对 ", id,)
-          fs.writeFileSync("./QQbat/time.json", "")
+          fs.writeFileSync("time.json", "")
       }
   }
 }

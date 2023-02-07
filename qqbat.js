@@ -1,7 +1,7 @@
 const axios = require("axios")
 const fs = require("fs");
 const schedule = require("node-schedule");
-const fs = require("fs")
+
 
 var weather, hot, str = '', filestr
 const list = [3096407768, 2195986238]
@@ -100,7 +100,7 @@ async function getphone() {
 //发送图片
 exports.imgIs = (types, id,) => {
     try {
-        let imglist = JSON.parse(fs.readFileSync("./QQbat/imgUrl.json"))
+        let imglist = JSON.parse(fs.readFileSync("imgUrl.json"))
         filestr = "[CQ:image,file=" + imglist[Math.floor(Math.random(0, 1) * imglist.length) + 1].url + "]"
         send.SendMessage(types, filestr, id)
     } catch (e) {
