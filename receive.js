@@ -2,6 +2,7 @@ const send = require("./qqbat")
 const sendmessage = require("./send")
 const read = require("./aready")
 const schedule_scheduleJob=require("./schedule_scheduleJob")
+const getclass=require("./getCookie")
 const fs = require("fs")
 
 exports.receive = (data) => {
@@ -19,7 +20,7 @@ exports.receive = (data) => {
         //已读消息
         read.read(data.message_id)
         let status = fs.readFileSync("status.txt").toString()
-        let list = ["f", "img", "chat", "t", "y","h"]
+        let list = ["f", "img", "chat", "t", "y","h","w"]
         let model = true
         if (status) {
             while (model) {
@@ -68,6 +69,12 @@ exports.receive = (data) => {
                         return;
                     }
                     schedule_scheduleJob.setTime(data.message_type,data.message,data.user_id)
+                    break
+                case "w":
+                    if (data.message === status) {
+                        return;
+                    }
+                    getclass.getCookie(data.message_type,data.message,data.user_id)
                     break
                 // default:
                 //     sendmessage.SendMessage(data.message_type,

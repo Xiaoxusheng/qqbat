@@ -5,11 +5,8 @@ const send = require("./qqbat")
 exports.schedule = () => {
     const data = fs.readFileSync("time.json")
     let time = new Date()
-    let sendIs = false
-
     let j = schedule.scheduleJob({hour: data.hour, minute: data.min, second: 0}, function () {
         console.log("[INFO] 启动时间:", "-------->>", new Date().toLocaleString())
-        sendIs = true
         sendmessage.SendMessage(data.types, data.data, data.user_id,)
     });
 
