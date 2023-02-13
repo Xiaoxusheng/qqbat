@@ -17,7 +17,7 @@ exports.schedule = () => {
 exports.setTime = (types, res, id) => {
   try {
       res = res.split(",")
-      console.log(res)
+      console.log(res[0].dayOfWeek)
       if ((0 <= res[0] && res[0] <= 24) && (0 <= res[1] && res[1] <= 60)) {
           if (res[2].length < 9) {
               sendmessage.SendMessage(types, "QQ位数错误", id,)

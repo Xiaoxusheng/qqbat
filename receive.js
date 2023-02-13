@@ -15,7 +15,6 @@ exports.receive = (data) => {
         sendmessage.SendMessage("private", "[CQ:poke,qq=3096407768]", data.sender_id,)
     }
 
-
     if (data.message) {
         //已读消息
         read.read(data.message_id)
@@ -32,7 +31,7 @@ exports.receive = (data) => {
                     fs.writeFileSync("status.txt", "")
                     sendmessage.SendMessage(data.message_type, "模式重置: ", data.user_id)
 
-                    sendmessage.SendMessage("[CQ:at,qq=" + data.user_id + "]" + "\n" + "请选择：" + "\n" + "重置模式: (y)" + "\n" + "天气模式：(t 例：武汉的天气)" + "\n" + "聊天模式：(chat)" + "\n" + "图片模式: (img)" + "\n" + "今日新闻：(f) " + "\n" + "(y,t,chat,img 全局生效)\n", data.user_id)
+                    sendmessage.SendMessage("[CQ:at,qq=" + data.user_id + "]" + "\n" + "请选择：" + "\n" + "重置模式: (y)" + "\n" + "天气模式：(t 例：武汉的天气)" + "\n" + "聊天模式：(chat)" + "\n" + "图片模式: (img)" + "\n" + "今日新闻：(f) " + "\n" + "看抖音视频：(v)"+"\n" + "(y,t,chat,img 全局生效)\n", data.user_id)
                 }
                 break
             }
@@ -88,7 +87,7 @@ exports.receive = (data) => {
             if (!list.includes(data.message)) {
                 sendmessage.SendMessage(data.message_type, "[CQ:record,file=http://39.98.40.255:3000/img/1.mp3]", data.user_id)
                 sendmessage.SendMessage(data.message_type, "输入的不对呦，靓仔", data.user_id)
-                sendmessage.SendMessage(data.message_type, "[CQ:at,qq=" + data.user_id + "]" + "\n" + "请选择：" + "\n" + "重置模式: (y)" + "\n" + "天气模式：(t 例：武汉的天气)" + "\n" + "聊天模式：(chat)" + "\n" + "图片模式: (img)" + "\n" + "今日新闻：(f) " + "\n" + "消息推送：(h 例 12,4,3096407768,早早早) " +"\n" + "(y,t,chat,img 全局生效)\n"
+                sendmessage.SendMessage(data.message_type, "[CQ:at,qq=" + data.user_id + "]" + "\n" + "请选择：" + "\n" + "重置模式: (y)" + "\n" + "天气模式：(t 例：武汉的天气)" + "\n" + "聊天模式：(chat)" + "\n" + "图片模式: (img)" + "\n" + "今日新闻：(f) " + "\n" + "消息推送：(h 例 12,4,3096407768,早早早) " +"\n" + "看抖音视频：(v)"+"\n" + "(y,t,chat,img 全局生效)\n"
 
                     , data.user_id)
                 fs.writeFileSync("status.txt", "")

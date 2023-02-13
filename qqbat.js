@@ -10,6 +10,7 @@ const i = Math.round(Math.random(0, 1))
 const qqBat = require("./ws")
 const send = require("./send")
 const {readFileSync, writeFileSync} = require("fs");
+//初始化连接
 qqBat.wsclint()
 
 //获取今日天气
@@ -40,7 +41,8 @@ exports.WeatherMessage = async (types, id, citys) => {
     }
 }
 
-
+//热点http://v.juhe.cn/toutiao/index
+//新的接口
 exports.hotmessage = async (types, id) => {
     try {
         const {data: res} = await axios({
@@ -157,42 +159,21 @@ exports.QQcaht = async (types, id, msg) => {
     }
 
 }
+//[CQ:video,file=http://baidu.com/1.mp4]
 
-function get(types, id, week) {
-    let j = JSON.parse(readFileSync("chet.json"))
-    if (j) {
-        console.log(j.data.kckbData)
-        let m = j.data.kckbData.sort((a, b) => {
-            return a.rqxl - b.rqxl
-        })
-        m.forEach(i => {
-            return console.log("节次:" + i.rqxl + "," + "课程:" + i.kcmc + "," + "教室:" + i.croommc + "," + "授课老师:" + i.tmc + "," + "类型:" + i.kcxz + "\n")
-        })
-        return
-    }
-    axios({
-        method: "get",
-        url: "http://jwxt.wut.edu.cn/admin/api/getXskb?xnxq=2022-2023-2&userId=2020002598&xqid=&week=2&role=xs",
-        params: {
-            xnxq: "2022-2023-2",
-            week: 2,
-            xqid: "",
-            role: "xs"
-        },
-        headers: {
-            Cookie: "defaultPass=0; route=d9ae95a40aba40f8e4a351beb9ac0418; uid=97e99881-f714-4ae8-9fe5-643cccc01f48"
-        }
-    }).then(req => {
-        writeFileSync("chet.json", JSON.stringify(req.data))
-        j = readFileSync("chet.json")
-        j = j.data.kckbData.sort((a, b) => {
-            return a.rqxl - b.rqxl
-        })
-        j.forEach(i => {
-            return console.log("节次:" + i.rqxl + "," + "课程:" + i.kcmc + "," + "教室:" + i.croommc + "," + "授课老师:" + i.tmc + "," + "类型:" + i.kcxz + "\n")
-        })
+exports.getVideo=async (types, id)=>{
+    const {data:res}=await axios({
+        method:"get",
+        url:"https://tucdn.wpon.cn/api-girl/index.php?wpon=json",
+
+
+
     })
+    console.log("https:"+res.mp4)
+    vedioUrl="[CQ:video,file="+"https:"+res.mp4 +"]"
+    send.SendMessage(types, vedioUrl ,id, )
 }
+
 
 
 schedule.scheduleJob({hour: 15, minute: 43, second: 0}, () => {
