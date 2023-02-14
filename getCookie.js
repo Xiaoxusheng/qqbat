@@ -3,7 +3,7 @@ const {writeFileSync, readFileSync} = require("fs");
 const sendMessage = require("./send")
 let cookie = []
 let str = ""
-
+//获取cookie
 exports.getCookie = async (types, week, id) => {
     const res = await axios({
         method: "get",

@@ -160,27 +160,26 @@ exports.QQcaht = async (types, id, msg) => {
 
 }
 //[CQ:video,file=http://baidu.com/1.mp4]
-
-exports.getVideo=async (types, id)=>{
-    const {data:res}=await axios({
-        method:"get",
-        url:"https://tucdn.wpon.cn/api-girl/index.php?wpon=json",
-
-
-
-    })
-    console.log("https:"+res.mp4)
-    vedioUrl="[CQ:video,file="+"https:"+res.mp4 +"]"
-    send.SendMessage(types, vedioUrl ,id, )
+//获取视频
+exports.getVideo = async (types, id) => {
+    try {
+        const {data: res} = await axios({
+            method: "get",
+            url: "https://tucdn.wpon.cn/api-girl/index.php?wpon=json",
+        })
+        console.log("https:" + res.mp4)
+        vedioUrl = "[CQ:video,file=" + "https:" + res.mp4 + "]"
+        send.SendMessage(types, vedioUrl, id,)
+    } catch (e) {
+        if (e) {
+         await   send.SendMessage(types, "获取视频接口出错了,联系管理员", id)
+        }
+    }
 }
-
 
 
 schedule.scheduleJob({hour: 15, minute: 43, second: 0}, () => {
     console.log("[INFO] 启动时间:", "-------->>", new Date().toLocaleString())
-
-
-
 });
 
 

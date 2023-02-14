@@ -23,8 +23,7 @@ exports.SendMessage = async (types, weather, id) => {
             data: {
                 group_id: id,
                 message: weather,
-                auto_escape: false,
-
+                auto_escape: true,
             }
 
         })

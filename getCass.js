@@ -1,6 +1,6 @@
 const  axios=require("axios")
 const {json} = require("express");
-
+const {asss}=require("./static")
 
 
 async function chat(){
@@ -13,4 +13,5 @@ async function chat(){
     console.log(res)
 
 }
-chat()
+
+

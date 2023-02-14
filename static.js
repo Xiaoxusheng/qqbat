@@ -69,7 +69,17 @@
 //     console.log("服务器打开")
 // })
 
+// str="禁言[CQ:at,qq=2195986238] 10分钟"
+// // const time=60*( str.slice(data.message.indexOf("]")+1,data.message.indexOf("分 ")))
+// console.log(str.indexOf("]"))
+// console.log(str.indexOf("分"))
+//
+// console.log(60*(str.slice(str.indexOf("]")+1,str.indexOf("分"))))
+// data="[CQ:at,qq=2673893724]"
+//
+// console.log(data===" [CQ:at,qq=2673893724] ")
 
 
-let num=11
-console.log(typeof num==="number")
+exports.asss=(s,d)=>{
+    return s+d
+}

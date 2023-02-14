@@ -3,8 +3,10 @@ const sendmessage = require("./send")
 const read = require("./aready")
 const schedule_scheduleJob=require("./schedule_scheduleJob")
 const getclass=require("./getCookie")
+const group=require("./group")
 const fs = require("fs")
 
+//处理消息函数
 exports.receive = (data) => {
     if (data.message_type === "undefined" || data.message === "undefined") {
         schedule_scheduleJob.schedule(data.user_id)
@@ -14,10 +16,13 @@ exports.receive = (data) => {
     if (data.post_type === "notice") {
         sendmessage.SendMessage("private", "[CQ:poke,qq=3096407768]", data.sender_id,)
     }
-
     if (data.message) {
         //已读消息
         read.read(data.message_id)
+        if(data.message_type==="group"){
+            group.groupsreceive(data)
+            return;
+        }
         let status = fs.readFileSync("status.txt").toString()
         let list = ["f", "img", "chat", "t", "y","h","w"]
         let model = true
