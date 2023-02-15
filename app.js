@@ -1,19 +1,17 @@
-import axios  from "axios";
-import{writeFileSync,readFileSync} from "fs";
-import {schedule} from "./schedule_scheduleJob";
-import {wsclint} from "./ws";
-import {SendMessage} from "./send";
+const axios=require("axios")
+const ws =require("./ws")
+const sendMessage= require("./send")
+const fs = require("fs");
+const {schedule} = require("./schedule_scheduleJob");
 
 
-var weather, hot, str = '', filestr
+let weather, hot, str = '', filestr
 const list = [3096407768, 2195986238]
 const i = Math.round(Math.random(0, 1))
 //监听消息
-// const qqBat = require("./ws")
-// const send = require("./send")
-// const {readFileSync, writeFileSync} = require("fs");
+
 //初始化连接
-wsclint()
+ws.wsclint()
 
 //获取今日天气
 
@@ -30,15 +28,15 @@ exports.WeatherMessage = async (types, id, citys) => {
         if (res.code === '10000') {
             weather = `主人查询时间: ${new Date().toLocaleString()},\n城市:${res.result.HeWeather5[0].basic.city},\n日期:${res.result.HeWeather5[0].hourly_forecast[0].date},\n天气:${res.result.HeWeather5[0].hourly_forecast[0].cond.txt},\n风向:${res.result.HeWeather5[0].hourly_forecast[0].wind.dir},\n风速:${res.result.HeWeather5[0].hourly_forecast[0].wind.spd},\n运动:${res.result.HeWeather5[0].suggestion.sport.txt}\n温度:${res.result.HeWeather5[0].hourly_forecast[0].tmp},\n穿衣:${res.result.HeWeather5[0].suggestion.drsg.txt}\n生活指数:${res.result.HeWeather5[0].suggestion.drsg.brf}\n感冒指数:${res.result.HeWeather5[0].suggestion.flu.brf}\n提示:${res.result.HeWeather5[0].suggestion.flu.txt}`
 
-           await SendMessage(types, weather, id)
+            await sendMessage.SendMessage(types, weather, id)
             return
         }
         weather = "获取今日天气失败，请联系主人"
-        await SendMessage(types, weather, id)
+        await sendMessage.SendMessage(types, weather, id)
     } catch (e) {
         console.log(e)
         if (e) {
-          await  SendMessage(types, "输入有误", id)
+            await sendMessage.SendMessage(types, "输入有误", id)
         }
     }
 }
@@ -63,13 +61,13 @@ exports.hotmessage = async (types, id) => {
                 str += x + "." + i.title + "\n"
                 x++
             })
-          await  SendMessage(types, str, id)
+            await sendMessage.SendMessage(types, str, id)
         } else {
-          await  SendMessage(types, "联系管理员，获取热点失败", id)
+            await sendMessage.SendMessage(types, "联系管理员，获取热点失败", id)
         }
     } catch (e) {
         if (e) {
-          await  SendMessage(types, "图片出错了", id)
+            await sendMessage.SendMessage(types, "图片出错了", id)
         }
     }
 }
@@ -107,10 +105,10 @@ exports.imgIs = (types, id,) => {
     try {
         let imglist = JSON.parse(fs.readFileSync("imgUrl.json"))
         filestr = "[CQ:image,file=" + imglist[Math.floor(Math.random(0, 1) * imglist.length) + 1].url + "]"
-        SendMessage(types, filestr, id)
+        sendMessage.SendMessage(types, filestr, id)
     } catch (e) {
         if (e) {
-            SendMessage(types, "图片出错了", id)
+            sendMessage.SendMessage(types, "图片出错了", id)
         }
     }
 
@@ -150,13 +148,13 @@ exports.QQcaht = async (types, id, msg) => {
         })
         console.log(res)
         if (res.result === 0) {
-            send.SendMessage(types, res.content.replace(/\{br\}/g, ""), id)
+            sendMessage.SendMessage(types, res.content.replace(/\{br\}/g, ""), id)
         } else {
-            SendMessage(send.SendMessage(types, "机器人出错了", id))
+            sendMessage.SendMessage(send.SendMessage(types, "机器人出错了", id))
         }
     } catch (e) {
         if (e) {
-            SendMessage(send.SendMessage(types, "输入有误", id))
+            sendMessage.SendMessage(send.SendMessage(types, "输入有误", id))
         }
     }
 
@@ -170,18 +168,18 @@ exports.getVideo = async (types, id) => {
             url: "https://tucdn.wpon.cn/api-girl/index.php?wpon=json",
         })
         console.log("https:" + res.mp4)
-      let  vedioUrl = "[CQ:video,file=" + "https:" + res.mp4 + "]"
-         await   SendMessage(types, vedioUrl, id,)
+        let vedioUrl = "[CQ:video,file=" + "https:" + res.mp4 + "]"
+        await sendMessage.SendMessage(types, vedioUrl, id,)
     } catch (e) {
         if (e) {
-         await  SendMessage(types, "获取视频接口出错了,联系管理员", id)
+            await sendMessage.SendMessage(types, "获取视频接口出错了,联系管理员", id)
         }
     }
 }
 
 
-schedule.scheduleJob({hour: 15, minute: 43, second: 0}, () => {
-    console.log("[INFO] 启动时间:", "-------->>", new Date().toLocaleString())
-});
+// schedule.scheduleJob({hour: 15, minute: 43, second: 0}, () => {
+//     console.log("[INFO] 启动时间:", "-------->>", new Date().toLocaleString())
+// });
 
 

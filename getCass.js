@@ -1,6 +1,8 @@
-const  axios=require("axios")
-const {json} = require("express");
-const {asss}=require("./static")
+
+import axios from "axios";
+import {json} from "express";
+import {asss} from "./static";
+
 
 
 async function chat(){

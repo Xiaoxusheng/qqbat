@@ -1,7 +1,6 @@
-const send=require("./send")
-const axios = require("axios");
-const {getVideo}=require("./qqbat")
-
+const SendMessage=require("../send")
+const axios=require("axios")
+const getVideo =require("../app")
 //处理群消息逻辑函数
 exports.groupsreceive=(data)=>{
 
@@ -10,8 +9,8 @@ exports.groupsreceive=(data)=>{
     if(data.sender.nickname==="Ra"){
         // console.log(data.message.includes("[CQ:at,qq=3096407768] "))注意这里的]后面有一个空格,不然会出问题
         if(data.message.includes("[CQ:at,qq=3096407768] ")){
-            send.SendMessage(data.message_type,"[CQ:at,qq="+data.sender.user_id+"]",data.group_id,)
-            send.SendMessage(data.message_type,"伟大的主人，我来了[CQ:face,id=123]，有什么吩咐",data.group_id)
+           SendMessage.SendMessage(data.message_type,"[CQ:at,qq="+data.sender.user_id+"]",data.group_id,)
+            SendMessage.SendMessage(data.message_type,"伟大的主人，我来了[CQ:face,id=123]，有什么吩咐",data.group_id)
         }
        if(data.message.includes("禁言")){
            let QQid=  data.message.slice(data.message.indexOf("=")+1,data.message.indexOf("]"))
@@ -21,12 +20,12 @@ exports.groupsreceive=(data)=>{
            return
        }
        if(data.message.includes("视频")){
-           getVideo(data.message_type, data.group_id)
-           return;
+           getVideo.getVideo(data.message_type, data.group_id)
+
        }
 
     }else {
-      send.SendMessage(data.message_type,"正在更新功能",data.group_id)
+      SendMessage(data.message_type,"正在更新功能",data.group_id)
     }
 
 

@@ -1,7 +1,7 @@
 const schedule = require("node-schedule");
 const sendmessage = require("./send")
 const fs = require("fs")
-const send = require("./qqbat")
+const send = require("./app")
 exports.schedule = () => {
     const data = fs.readFileSync("time.json")
     let time = new Date()
