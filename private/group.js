@@ -23,6 +23,9 @@ exports.groupsreceive=(data)=>{
            getVideo.getVideo(data.message_type, data.group_id)
 
        }
+       if(data.message.includes("")){
+
+       }
 
     }else {
       SendMessage(data.message_type,"正在更新功能",data.group_id)

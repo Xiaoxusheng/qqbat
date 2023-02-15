@@ -2,6 +2,7 @@
 
 [![Security Status](https://www.murphysec.com/platform3/v3/badge/1618401806711816193.svg?t=1)](https://www.murphysec.com/accept?code=380c02bae038e8e0b24e796b27efb536&type=1&from=2&t=2)
 ### 基于go-cqhttp与JavaScript 语言实现
+[![OSCS Status](https://www.oscs1024.com/platform/badge/qqbat.svg?size=small)](https://www.murphysec.com/accept?code=1767a4da4c3d58db34dccbb2cfadf50f&type=1&from=2)
 
 
 ### 1 功能如下
@@ -75,5 +76,5 @@
 
       如有疑问请联系3096407768@qq.com
       go-cqhttp请去官网下载，仓库中只是服务端逻辑处理代码
-      qqbat.js为项目入口文件
+      app.js为项目入口文件
 

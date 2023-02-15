@@ -165,11 +165,13 @@ exports.getVideo = async (types, id) => {
     try {
         const {data: res} = await axios({
             method: "get",
-            url: "https://tucdn.wpon.cn/api-girl/index.php?wpon=json",
+            url: "https://zj.v.api.aa1.cn/api/video_dyv2",
         })
-        console.log("https:" + res.mp4)
-        let vedioUrl = "[CQ:video,file=" + "https:" + res.mp4 + "]"
-        await sendMessage.SendMessage(types, vedioUrl, id,)
+        //https://zj.v.api.aa1.cn/api/video_dyv2
+        //https://tucdn.wpon.cn/api-girl/index.php?wpon=json
+        // console.log("https:" + res.mp4)
+        // let vedioUrl = "[CQ:video,file=" + "https:" + res.mp4 + "]"
+        await sendMessage.SendMessage(types, res.url, id,)
     } catch (e) {
         if (e) {
             await sendMessage.SendMessage(types, "获取视频接口出错了,联系管理员", id)
