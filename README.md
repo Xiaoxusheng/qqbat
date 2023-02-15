@@ -1,6 +1,7 @@
 ## QQbat机器
-[![Security Status](https://www.murphysec.com/platform3/v3/badge/1618401806711816193.svg?t=1)](https://www.murphysec.com/accept?code=380c02bae038e8e0b24e796b27efb536&type=1&from=2&t=2)
 
+
+[![Security Status](https://www.murphysec.com/platform3/v3/badge/1618401806711816193.svg?t=1)](https://www.murphysec.com/accept?code=380c02bae038e8e0b24e796b27efb536&type=1&from=2&t=2)
 
 ### 基于go-cqhttp与JavaScript 语言实现
 
