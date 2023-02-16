@@ -30,7 +30,7 @@ exports.getCookie = async (types, week, id) => {
     }
     console.log(cookie)
 
-    getclass(cookie, types, id, week)
+   await getclass(cookie, types, id, week)
 
 
 }
@@ -38,7 +38,7 @@ exports.getCookie = async (types, week, id) => {
 
 async function getclass(cookie, types, id, week) {
     if (week < 2 || week > 19) {
-        sendMessage.SendMessage(types, "没课啊靓仔", id)
+       await sendMessage.SendMessage(types, "没课啊靓仔", id)
         return
     }
     console.log(config.obj.week,week)
@@ -52,7 +52,7 @@ async function getclass(cookie, types, id, week) {
             str1 += "周[" + i.dayOfWeek + "]" + "课程[" + i.name + "]" + "节次[" + i.beginNumber + "-" + (i.beginNumber + 1) + "]" + "教室[" + i.location + "]" + "任课教师[" + i.teacherName + "]" + "\n"
             console.log("周[" + i.dayOfWeek + "]" + "课程[" + i.name + "]" + "节次[" + i.beginNumber + "-" + (i.beginNumber + 1) + "]" + "教室[" + i.location + "]" + "任课教师[" + i.teacherName + "]")
         })
-        sendMessage.SendMessage(types, str1, id)
+     await   sendMessage.SendMessage(types, str1, id)
         console.log(4444)
         return
     }
@@ -72,7 +72,7 @@ async function getclass(cookie, types, id, week) {
         })
         console.log(res.data)
         writeFileSync("chet.json", JSON.stringify(res.data.lessonArray))
-        k = res.data.lessonArray.sort((a, b) => {
+       let  k = res.data.lessonArray.sort((a, b) => {
             return a.dayOfWeek - b.dayOfWeek
         })
         // console.log(k)
@@ -81,10 +81,10 @@ async function getclass(cookie, types, id, week) {
             // console.log(str += "周[" + i.dayOfWeek + "]" + "课程[" + i.name + "]" + "节次[" + i.beginNumber + "-" + (i.beginNumber + 1) + "]" + "教室[" + i.location + "]" + "任课教师[" + i.teacherName + "]" + "\n")
         })
         console.log(str)
-        sendMessage.SendMessage(types, str, id)
+       await sendMessage.SendMessage(types, str, id)
         config.obj.week=week
     }catch (e) {
-        sendMessage.SendMessage(types,"输入有误",id)
+     await   sendMessage.SendMessage(types,"输入有误",id)
     }
 }
 
