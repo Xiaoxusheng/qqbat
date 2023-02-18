@@ -5,13 +5,13 @@ const send = require("./app")
 exports.schedule = () => {
     const data = fs.readFileSync("time.json")
     let time = new Date()
-    let j = schedule.scheduleJob({hour: data.hour, minute: data.min, second: 0}, function () {
+    schedule.scheduleJob({hour: data.hour, minute: data.min, second: 0}, function () {
         console.log("[INFO] 启动时间:", "-------->>", new Date().toLocaleString())
         sendmessage.SendMessage(data.types, data.data, data.user_id,)
     });
 
 
-    j.cancel()
+
 }
 //设定时间推送消息
 exports.setTime = (types, res, id) => {

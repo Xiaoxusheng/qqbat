@@ -2,6 +2,9 @@ const SendMessage = require("../send")
 const axios = require("axios")
 const getVideo = require("../app")
 const fs = require("fs");
+const schedule = require("node-schedule");
+const sendmessage = require("../send");
+const chatgpt=require("../chatgpt/chatgpt")
 let lastMessage
 
 //处理群消息逻辑函数
@@ -45,6 +48,16 @@ exports.groupsreceive = (data) => {
         }
         lastMessage = data.message_id
     } else {
+        if(data.message.includes("关闭")){
+            return;
+        }
+        else {
+            chatgpt.chatgpt(data.message_type,data.group_id,data.message)
+        }
+        if (data.message.includes("视频")) {
+            getVideo.getVideo(data.message_type, data.group_id)
+            return;
+        }
         SendMessage.SendMessage(data.message_type, "正在更新功能", data.group_id)
     }
 
@@ -86,7 +99,6 @@ async function gag(group_id, user_id, duration) {
 }
 
 //撤回消息
-
 async function delete_msg(message_id, group_id, message_type) {
     try {
         axios({
@@ -104,6 +116,7 @@ async function delete_msg(message_id, group_id, message_type) {
 
 }
 
+//群成员列表
 async function get_group_member_list(group_id) {
     try {
         const res = await axios({
