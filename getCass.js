@@ -33,8 +33,6 @@ async function getCookie() {
 
 
 }
-
-
 async function getclass(cookie) {
 
     try {

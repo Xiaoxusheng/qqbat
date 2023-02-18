@@ -11,8 +11,8 @@ exports.getCookie = async (types, week, id) => {
         method: "get",
         url: "https://passport2.chaoxing.com/api/login",
         params: {
-            name: 13277626850,
-            pwd: "lei125608"
+            // name: 账号,
+            // pwd:密码
         },
         withCredentials: true,
         headers: {
