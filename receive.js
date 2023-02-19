@@ -1,12 +1,12 @@
 const send = require("./app")
 const sendmessage = require("./send")
-const read = require("./messagedeal")
+const read = require("./utility/messagedeal")
 const schedule_scheduleJob=require("./schedule_scheduleJob")
 const getclass=require("./getCookie")
 const group=require("./private/group")
 const fs = require("fs")
 const privatrchat=require("./private/private")
-const messagedeal = require("./messagedeal");
+const messagedeal = require("./utility/messagedeal");
 
 
 //处理消息函数
