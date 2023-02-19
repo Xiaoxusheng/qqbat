@@ -67,7 +67,8 @@ exports.hotmessage = async (types, id) => {
         }
     } catch (e) {
         if (e) {
-            await sendMessage.SendMessage(types, "图片出错了", id)
+            console.log(e)
+            await sendMessage.SendMessage(types, "热点出错了:"+e, id)
         }
     }
 }
@@ -108,7 +109,7 @@ exports.imgIs = (types, id,) => {
         sendMessage.SendMessage(types, filestr, id)
     } catch (e) {
         if (e) {
-            sendMessage.SendMessage(types, "图片出错了", id)
+            sendMessage.SendMessage(types, "图片出错了:"+e, id)
         }
     }
 
@@ -174,7 +175,7 @@ exports.getVideo = async (types, id) => {
         await sendMessage.SendMessage(types, res.url, id,)
     } catch (e) {
         if (e) {
-            await sendMessage.SendMessage(types, "获取视频接口出错了,联系管理员", id)
+            await sendMessage.SendMessage(types, "获取视频接口出错了,联系管理员,错误原因："+e, id)
         }
     }
 }

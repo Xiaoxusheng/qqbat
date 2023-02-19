@@ -6,6 +6,7 @@ const getclass=require("./getCookie")
 const group=require("./private/group")
 const fs = require("fs")
 const privatrchat=require("./private/private")
+const messagedeal = require("./messagedeal");
 
 
 //处理消息函数
@@ -14,6 +15,7 @@ exports.receive = (data) => {
         schedule_scheduleJob.schedule(data.user_id)
         return
     }
+    messagedeal.banrecall(data)
     //戳一戳
     if (data.post_type === "notice") {
         sendmessage.SendMessage("private", "[CQ:poke,qq=3096407768]", data.sender_id,)
@@ -21,6 +23,7 @@ exports.receive = (data) => {
     if (data.message) {
         //已读消息
         read.read(data.message_id)
+
         if(data.message_type==="group"){
             group.groupsreceive(data)
             return;
