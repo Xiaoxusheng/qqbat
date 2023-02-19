@@ -1,10 +1,9 @@
 const schedule = require("node-schedule");
 const sendmessage = require("./send")
 const fs = require("fs")
-const send = require("./app")
+
 exports.schedule = () => {
     const data = fs.readFileSync("time.json")
-    let time = new Date()
     schedule.scheduleJob({hour: data.hour, minute: data.min, second: 0}, function () {
         console.log("[INFO] 启动时间:", "-------->>", new Date().toLocaleString())
         sendmessage.SendMessage(data.types, data.data, data.user_id,)
