@@ -1,7 +1,7 @@
 const axios = require("axios")
 const fs = require("fs");
-const SendMessage = require("./send");
-const getmessage=require("./Websocket/getmessage")
+const SendMessage = require("../send");
+const getmessage=require("./getmessage")
 //已读消息
 exports.read = async ({message_id}) => {
     const {data: res} = await axios({

@@ -2,7 +2,7 @@ const {writeFileSync,readFileSync} =require( "fs");
 const {SendMessage} = require("../send");
 const send =require ("../app");
 const {setTime}= require ("../schedule_scheduleJob");
-const {getCookie} =require( "../getCookie");
+const {getCookie, getclass} =require( "../getCookie");
 const chatgpt=require("../chatgpt/chatgpt")
 
 exports.privates = (data) => {
@@ -62,7 +62,7 @@ exports.privates = (data) => {
                 if (data.message === status) {
                     return;
                 }
-                getCookie(data.message_type, data.message, data.user_id)
+                getclass(data.message_type, data.message, data.user_id)
                 break
             // default:
             //     sendmessage.SendMessage(data.message_type,

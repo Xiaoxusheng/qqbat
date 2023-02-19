@@ -2,7 +2,7 @@ const SendMessage = require("../send")
 const getVideo = require("../app")
 const fs = require("fs");
 const chatgpt=require("../chatgpt/chatgpt")
-const messagedeal=require("../messagedeal")
+const messagedeal=require("../utility/messagedeal")
 let lastMessage
 
 //处理群消息逻辑函数
