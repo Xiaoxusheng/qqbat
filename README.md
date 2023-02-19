@@ -66,9 +66,9 @@
 
 #### 6.结果
 
-![img.png](img.png)
-![img_1.png](img_1.png)
-![img_3.png](img_3.png)
+![img.png](img/img.png)
+![img_1.png](img/img_1.png)
+![img_3.png](img/img_3.png)
 #### 6.说明：
      部署到阿里云或者腾讯云服务器上查询学习通课表无法使用，学习通屏蔽了服务器ip
 

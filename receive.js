@@ -1,6 +1,6 @@
 const send = require("./app")
 const sendmessage = require("./send")
-const read = require("./aready")
+const read = require("./messagedeal")
 const schedule_scheduleJob=require("./schedule_scheduleJob")
 const getclass=require("./getCookie")
 const group=require("./private/group")

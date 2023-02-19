@@ -1,5 +1,5 @@
 const axios=require("axios")
-const ws =require("./ws")
+const ws =require("./Websocket/ws")
 const sendMessage= require("./send")
 const fs = require("fs");
 const {schedule} = require("./schedule_scheduleJob");
@@ -91,8 +91,8 @@ async function getphone() {
         method: "post",
         url: "http://127.0.0.1:5000/_set_model_show",
         data: {
-            model: "iPhone14,5",
-            model_show: "iPhone14,5 (黑色)"
+            model: "go-cqhttp",
+            model_show: "go-cqhttp (黑色)"
 
         }
 
