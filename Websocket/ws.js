@@ -16,8 +16,8 @@ exports.wsclint = () => {
             receive.receive(data)
 
         });
-        socket.on("close", socket => {
-            SendMessage.SendMessage
+        socket.on("close", () => {
+
             console.log("推送服务器断开连接")
         })
 

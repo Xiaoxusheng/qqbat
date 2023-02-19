@@ -1,9 +1,6 @@
 const SendMessage = require("../send")
-const axios = require("axios")
 const getVideo = require("../app")
 const fs = require("fs");
-const schedule = require("node-schedule");
-const sendmessage = require("../send");
 const chatgpt=require("../chatgpt/chatgpt")
 const messagedeal=require("../messagedeal")
 let lastMessage
@@ -13,10 +10,11 @@ exports.groupsreceive = (data) => {
 
     console.log(data.message)
     console.log(data.sender.nickname === "Ra")
+
     // 判断是否有新成员
-    let groupList1 = fs.readFileSync("./private/group.json")
+    let groupList1 = fs.readFileSync("./private/group.json").toString()
     if(groupList1===""){
-        get_group_member_list(data.group_id)
+       messagedeal.get_group_member_list(data.group_id)
         return;
     }
     groupList1 = JSON.parse(groupList1)
@@ -49,8 +47,9 @@ exports.groupsreceive = (data) => {
 
         }
         if (data.message.includes("撤回")) {
-            messagedeal.withdraw(lastMessage, group_id, data.message_type)
+            messagedeal.recall(lastMessage, group_id, data.message_type)
         }
+
         lastMessage = data.message_id
     } else {
         if(data.message.includes("关闭")){

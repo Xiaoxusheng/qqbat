@@ -3,6 +3,7 @@ const {SendMessage} = require("../send");
 const send =require ("../app");
 const {setTime}= require ("../schedule_scheduleJob");
 const {getCookie} =require( "../getCookie");
+const chatgpt=require("../chatgpt/chatgpt")
 
 exports.privates = (data) => {
     let status = readFileSync("./private/status.txt").toString()
@@ -29,7 +30,8 @@ exports.privates = (data) => {
                 if (data.message === status) {
                     return;
                 }
-                send.QQcaht(data.message_type, data.user_id, data.message)
+                // send.QQcaht(data.message_type, data.user_id, data.message)
+                chatgpt.chatgpt(data.message_type, data.user_id, data.message)
                 break
             case "t":
                 if (data.message === status) {
