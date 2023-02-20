@@ -1,7 +1,8 @@
 const {Configuration, OpenAIApi} = require("openai");
-const {readFileSync} = require("fs");
+const {readFileSync, writeFileSync} = require("fs");
 const SendMessage = require("../Websocket/send")
 const fs = require("fs");
+const {response} = require("express");
 const token = JSON.parse(
     readFileSync("../appkey.json")
 )
@@ -13,14 +14,21 @@ const openai = new OpenAIApi(configuration);
 // font":0,"sender":{"age":0,"nickname":"Ra","sex":"unknown","user_id":3096407768},"message_id":-1073489619,"user_id":3096407768}
 exports.chatgpt = async (types, id, message_id, propmt) => {
     try {
+        let data=readFileSync("chatgpt.txt").toString()
         const completion = await openai.createCompletion({
             model: "text-davinci-003",
             temperature: 0.5,
-            max_tokens: 500,
-            prompt: propmt,
+            max_tokens: 1000,
+            top_p: 1,
+            frequency_penalty: 0,
+            presence_penalty: 0.6,
+            stop: [" Human:", " AI:"],
+            prompt: data+"Human:"+propmt,
         });
         console.log(completion.data.choices[0]);
         let resopone = completion.data.choices[0].text.replace("/\n\t\\\\b/g", "")
+        writeFileSync("chatgpt.txt","The following is a conversation with an AI assistant. The assistant is helpful, creative, clever, and very friendly.\n\nHuman: Hello, who are you?\nAI: I am an AI created by OpenAI. How can I help you today?\nHuman: "+propmt+"\n"+resopone+"\n")
+        resopone=resopone.replace("AI:","")
         // console.log(resopone)
         // 回复消息
         if (types === "private") {
@@ -31,7 +39,20 @@ exports.chatgpt = async (types, id, message_id, propmt) => {
         //
     } catch (e) {
         if (e) {
-            await SendMessage.SendMessage(types, "chatgpt机器人出错了", id,)
+            switch (completion.status){
+                case "401":
+                   await SendMessage.SendMessage(types, "chatgpt机器人验证出错了", id,)
+                    break;
+                case  "429":
+                 await   SendMessage.SendMessage(types,"chatgpt机器人达到请求的速率限制",id)
+                    break
+                case "500":
+                  await  SendMessage.SendMessage(types,"chatgpt机器人服务器在处理您的请求时出错",id)
+                    break
+                default:
+                  await  await SendMessage.SendMessage(types, `chatgpt机器人出错了,错误在:${e}`, id,)
+            }
+
         }
     }
 
@@ -41,10 +62,9 @@ exports.chatgpt = async (types, id, message_id, propmt) => {
 //  prompt: "The following is a conversation with an AI assistant. The assistant is helpful, creative, clever, and very friendly.\n\nHuman: Hello, who are you?\nAI: I am an AI created by OpenAI. How can I help you today?\nHuman: 写一首诗\n\n花开时百色缤纷 春的温度醉我心\n无尽的想象伴随翱翔 尽牵动我晨夕思\n红叶落下无久别 尘世曲与尚未完\n而你何品芳华流离尽 天上月影跟随我心",
 exports.getimg=async (types, id, propmt)=> {
     try {
-        let data = JSON.parse(readFileSync("chatgpt.txt"))
-
-        const response = await openai.createImage({
-            prompt: data + "Human:" + propmt + "\n",
+      propmt= propmt.slice(propmt.indexOf("图"),propmt.length-1)
+        const resonse = await openai.createImage({
+            prompt:  propmt ,
             n: 1,
             size: "1024x1024",
         });
@@ -55,7 +75,7 @@ exports.getimg=async (types, id, propmt)=> {
 
     } catch (e) {
         if (e) {
-            await SendMessage.SendMessage(types, "图片出错了", id)
+            await SendMessage.SendMessage(types, `图片出错了${e}`, id)
         }
     }
 
@@ -87,7 +107,7 @@ exports.moderations = async (types, input, id) => {
         }
     }
     if(iS){
-        return
+        return ""
     }
 }
 

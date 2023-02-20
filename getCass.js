@@ -6,7 +6,7 @@ const config = require("./config.json")
 let str = "", str1 = ""
 
 //获取cookie
-async function getCookie() {
+async function getCookie(types,id) {
     try {
 
         let cookie = []
@@ -38,7 +38,7 @@ async function getCookie() {
 
 
     } catch (e) {
-        await sendMessage.SendMessage(types, "获取cookie出错,错误为:" + e, id)
+        await sendMessage.SendMessage(types, `获取cookie出错,错误为:${e}`, id)
         return ""
     }
 
@@ -46,14 +46,14 @@ async function getCookie() {
 }
 
 exports.getclass = async (types, week,id,) => {
-    const cookie = await getclass()
+    const cookie = await  getCookie(types,id)
     if (week < 2 || week > 19) {
         await sendMessage.SendMessage(types, "没课啊靓仔", id)
         return
     }
 
     if (config.week === week) {
-        let resp = JSON.parse(readFileSync("chet.json"))
+        let resp = JSON.parse(readFileSync("class.json"))
         console.log(resp)
         let j = resp.sort((a, b) => {
             return a.dayOfWeek - b.dayOfWeek
@@ -80,7 +80,7 @@ exports.getclass = async (types, week,id,) => {
             },
         })
         console.log(res.data)
-        writeFileSync("chet.json", JSON.stringify(res.data.lessonArray))
+        writeFileSync("class.json", JSON.stringify(res.data.lessonArray))
         let k = res.data.lessonArray.sort((a, b) => {
             return a.dayOfWeek - b.dayOfWeek
         })
@@ -91,9 +91,11 @@ exports.getclass = async (types, week,id,) => {
         })
         console.log(str)
         await sendMessage.SendMessage(types, str, id)
-        config.obj.week = week
+        data= JSON.parse(readFileSync("config.json",))
+        data.week = week
+        writeFileSync("config.json",JSON.stringify(data))
     } catch (e) {
-        await sendMessage.SendMessage(types, "输入有误", id)
+        await sendMessage.SendMessage(types, `输入有误:${e}`, id)
     }
 }
 

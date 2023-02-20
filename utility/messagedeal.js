@@ -30,7 +30,7 @@ exports.recall = async (group_id, message_id, message_type) => {
         console.log(res)
     } catch (e) {
         if (e) {
-            await SendMessage.SendMessage(message_type, "撤回失败:" + e, group_id,)
+            await SendMessage.SendMessage(message_type, `撤回失败:${e}`, group_id,)
         }
 
     }
@@ -57,7 +57,7 @@ exports.banchat = async (group_id, user_id, duration) => {
         await SendMessage.SendMessage("group", "设置禁言成功", group_id,)
     } catch (e) {
         if (e) {
-            await SendMessage.SendMessage("group", "设置失败:" + e, group_id,)
+            await SendMessage.SendMessage("group", `设置失败:${e}`, group_id,)
         }
     }
 

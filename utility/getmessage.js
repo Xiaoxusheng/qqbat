@@ -13,7 +13,7 @@ exports.getmessage = async (types, message_id, id) => {
         console.log(res.data.data.message)
         return res
     } catch (e) {
-        await Sendmessage.SendMessage(types, "获取撤回消息出错了:" + e, id)
+        await Sendmessage.SendMessage(types, `获取撤回消息出错了:${e}`, id)
         return null
     }
 

@@ -58,7 +58,7 @@ writeFileSync("config.json",JSON.stringify(data))
 //     }
 //
 //     if (config.week === week) {
-//         let resp = JSON.parse(readFileSync("chet.json"))
+//         let resp = JSON.parse(readFileSync("class.json"))
 //         console.log(resp)
 //         let j = resp.sort((a, b) => {
 //             return a.dayOfWeek - b.dayOfWeek
@@ -85,7 +85,7 @@ writeFileSync("config.json",JSON.stringify(data))
 //             },
 //         })
 //         console.log(res.data)
-//         writeFileSync("chet.json", JSON.stringify(res.data.lessonArray))
+//         writeFileSync("class.json", JSON.stringify(res.data.lessonArray))
 //         let k = res.data.lessonArray.sort((a, b) => {
 //             return a.dayOfWeek - b.dayOfWeek
 //         })
