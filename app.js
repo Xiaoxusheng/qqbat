@@ -1,6 +1,6 @@
 const axios=require("axios")
 const ws =require("./Websocket/ws")
-const sendMessage= require("./send")
+const sendMessage= require("./Websocket/send")
 const fs = require("fs");
 const {schedule} = require("./schedule_scheduleJob");
 

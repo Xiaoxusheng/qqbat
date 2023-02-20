@@ -1,5 +1,5 @@
 const schedule = require("node-schedule");
-const sendmessage = require("./send")
+const sendmessage = require("./Websocket/send")
 const fs = require("fs")
 
 exports.schedule = () => {

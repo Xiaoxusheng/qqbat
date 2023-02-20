@@ -1,4 +1,4 @@
-const SendMessage = require("../send")
+const SendMessage = require("../Websocket/send")
 const getVideo = require("../app")
 const fs = require("fs");
 const chatgpt=require("../chatgpt/chatgpt")
@@ -49,14 +49,14 @@ exports.groupsreceive = (data) => {
         if (data.message.includes("撤回")) {
             messagedeal.recall(lastMessage, group_id, data.message_type)
         }
-
+        chatgpt.chatgpt(data.message_type,data.group_id,data.message_id,data.message)
         lastMessage = data.message_id
     } else {
         if(data.message.includes("关闭")){
             return;
         }
         else {
-            chatgpt.chatgpt(data.message_type,data.group_id,data.message)
+            chatgpt.chatgpt(data.message_type,data.group_id,data.message_id,data.message)
         }
         if (data.message.includes("视频")) {
             getVideo.getVideo(data.message_type, data.group_id)

@@ -1,6 +1,6 @@
 const axios = require("axios")
 const fs = require("fs");
-const SendMessage = require("../send");
+const SendMessage = require("../Websocket/send");
 const getmessage=require("./getmessage")
 //已读消息
 exports.read = async ({message_id}) => {
@@ -92,6 +92,14 @@ exports.get_group_member_list = async (group_id) => {
 * 群聊天撤回
 * {"post_type":"notice","notice_type":"group_recall","time":1676809270,"self_id":2673893724,
 * "group_id":682671449,"user_id":3096407768,"operator_id":3096407768,"message_id":-1460439864}
+* 视频
+* [CQ:video,file=3f1451647056a4df574c1afbdc94ac62.video,
+* url=http://180.102.109.121:80/qqdownload?
+* ver=537118796&amp;rkey=3081fd0201010481f53081f202010102010002049f60615c0481a63330353130323031303030343336333033343032303130303032303462383866
+* 366564383032303337613133663730323034323830333166366630323034363366333031613330343130336631343531363437303536613464663537346331616662646339346163363230
+* 3230333761316166663032303130303034313430303030303030383636363936633635373437393730363530303030303030343331333033303331020463f301a404350000000866696c657479
+* 706500000004313030330000000b646f776e656e63727970740000000130000000047175696300000001300400&amp;filetype=1003&amp;videotype=1&amp;subvideotype=0&amp;term=unknow]
+*
 * */
 exports.banrecall = async ({notice_type,operator_id,message_id,user_id,group_id}) => {
     if (notice_type === "group_recall" && operator_id === operator_id) {

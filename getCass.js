@@ -11,7 +11,7 @@ console.log(Date.now())
 
 const axios = require("axios")
 const {writeFileSync, readFileSync} = require("fs");
-const sendMessage = require("./send")
+const sendMessage = require("./Websocket/send")
 const config=require("./config")
 
 let str = "",str1=""

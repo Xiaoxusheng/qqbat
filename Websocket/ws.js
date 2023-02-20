@@ -1,6 +1,6 @@
 const {WebSocketServer} = require("ws")
 const receive = require("../receive")
-const SendMessage = require("../send")
+const SendMessage = require("./send")
 const ws = new WebSocketServer({port: 5700});
 
 

@@ -1,5 +1,5 @@
 const {writeFileSync,readFileSync} =require( "fs");
-const {SendMessage} = require("../send");
+const {SendMessage} = require("../Websocket/send");
 const send =require ("../app");
 const {setTime}= require ("../schedule_scheduleJob");
 const {getCookie, getclass} =require( "../getCookie");
@@ -31,7 +31,7 @@ exports.privates = (data) => {
                     return;
                 }
                 // send.QQcaht(data.message_type, data.user_id, data.message)
-                chatgpt.chatgpt(data.message_type, data.user_id, data.message)
+                chatgpt.chatgpt(data.message_type, data.user_id,data.message_id, data.message)
                 break
             case "t":
                 if (data.message === status) {
