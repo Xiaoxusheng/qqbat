@@ -1,24 +1,13 @@
-function get(...agaent){
-    console.log(agaent[0])
-}
-get({
-    data:12,
-    id:23
-},100)
-
-
-console.log(Date.now())
-
 const axios = require("axios")
 const {writeFileSync, readFileSync} = require("fs");
 const sendMessage = require("./Websocket/send")
-const config=require("./config")
+const config = require("./config.json")
 
-let str = "",str1=""
+let str = "", str1 = ""
 
 //获取cookie
-async function getCookie(t)  {
-    try{
+async function getCookie() {
+    try {
 
         let cookie = []
         const res = await axios({
@@ -43,30 +32,27 @@ async function getCookie(t)  {
             }
             console.log(cookie)
             return cookie
+        } else {
+            return ""
         }
-        else {
-           return ""
-        }
-    }catch (e) {
-        await   sendMessage.SendMessage(types,"获取cookie出错,错误为:"+e,id)
+
+
+    } catch (e) {
+        await sendMessage.SendMessage(types, "获取cookie出错,错误为:" + e, id)
         return ""
     }
 
 
 }
-async function a(){
-    const a=await getCookie()
-    console.log(a)
-}
-a()
-console
-async function getclass(cookie, types, id, week) {
+
+exports.getclass = async (types, week,id,) => {
+    const cookie = await getclass()
     if (week < 2 || week > 19) {
         await sendMessage.SendMessage(types, "没课啊靓仔", id)
         return
     }
-    console.log(config.obj.week,week)
-    if (config.obj.week===week) {
+
+    if (config.week === week) {
         let resp = JSON.parse(readFileSync("chet.json"))
         console.log(resp)
         let j = resp.sort((a, b) => {
@@ -76,11 +62,10 @@ async function getclass(cookie, types, id, week) {
             str1 += "周[" + i.dayOfWeek + "]" + "课程[" + i.name + "]" + "节次[" + i.beginNumber + "-" + (i.beginNumber + 1) + "]" + "教室[" + i.location + "]" + "任课教师[" + i.teacherName + "]" + "\n"
             console.log("周[" + i.dayOfWeek + "]" + "课程[" + i.name + "]" + "节次[" + i.beginNumber + "-" + (i.beginNumber + 1) + "]" + "教室[" + i.location + "]" + "任课教师[" + i.teacherName + "]")
         })
-        await   sendMessage.SendMessage(types, str1, id)
-        console.log(4444)
+        await sendMessage.SendMessage(types, str1, id)
         return
     }
-    try{
+    try {
         const {data: res} = await axios({
             method: "get",
             url: "https://kb.chaoxing.com/pc/curriculum/getMyLessons",
@@ -96,7 +81,7 @@ async function getclass(cookie, types, id, week) {
         })
         console.log(res.data)
         writeFileSync("chet.json", JSON.stringify(res.data.lessonArray))
-        let  k = res.data.lessonArray.sort((a, b) => {
+        let k = res.data.lessonArray.sort((a, b) => {
             return a.dayOfWeek - b.dayOfWeek
         })
         // console.log(k)
@@ -106,9 +91,9 @@ async function getclass(cookie, types, id, week) {
         })
         console.log(str)
         await sendMessage.SendMessage(types, str, id)
-        config.obj.week=week
-    }catch (e) {
-        await   sendMessage.SendMessage(types,"输入有误",id)
+        config.obj.week = week
+    } catch (e) {
+        await sendMessage.SendMessage(types, "输入有误", id)
     }
 }
 

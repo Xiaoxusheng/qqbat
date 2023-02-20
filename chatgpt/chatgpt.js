@@ -1,11 +1,9 @@
 const {Configuration, OpenAIApi} = require("openai");
-const {readFile, readFileSync} = require("fs");
+const {readFileSync} = require("fs");
 const SendMessage = require("../Websocket/send")
-const getmessage = require("../utility/getmessage")
-const axios = require("axios");
 const fs = require("fs");
 const token = JSON.parse(
-    readFileSync("./appkey.json")
+    readFileSync("../appkey.json")
 )
 const configuration = new Configuration({
     apiKey: token.apikey,
@@ -41,7 +39,7 @@ exports.chatgpt = async (types, id, message_id, propmt) => {
 }
 
 //  prompt: "The following is a conversation with an AI assistant. The assistant is helpful, creative, clever, and very friendly.\n\nHuman: Hello, who are you?\nAI: I am an AI created by OpenAI. How can I help you today?\nHuman: 写一首诗\n\n花开时百色缤纷 春的温度醉我心\n无尽的想象伴随翱翔 尽牵动我晨夕思\n红叶落下无久别 尘世曲与尚未完\n而你何品芳华流离尽 天上月影跟随我心",
-async function img(types, id, propmt) {
+exports.getimg=async (types, id, propmt)=> {
     try {
         let data = JSON.parse(readFileSync("chatgpt.txt"))
 
@@ -63,4 +61,33 @@ async function img(types, id, propmt) {
 
 }
 
-img()
+exports.moderations = async (types, input, id) => {
+    const response = await openai.createModeration({
+        input,
+    });
+    let iS=false
+    // console.log(response.data.results[0] )
+    for (let i in response.data.results[0].categories) {
+        console.log(response.data.results[0].categories[i])
+        console.log(i)
+        if (response.data.results[0].categories[i]) {
+            await SendMessage.SendMessage(types, "存在敏感词", id)
+            iS=true
+            break
+        }
+
+    }
+    for (let i in response.data.results[0].category_scores) {
+        if (response.data.results[0].category_scores[i] > 0.8 || parseInt(response.data.results[0].category_scores[i])) {
+
+            await SendMessage.SendMessage(types, "存在违规词语", id)
+            // console.log("存在违规词语")
+            iS=true
+            break
+        }
+    }
+    if(iS){
+        return
+    }
+}
+

@@ -7,10 +7,14 @@ const group=require("./private/group")
 const fs = require("fs")
 const privatrchat=require("./private/private")
 const messagedeal = require("./utility/messagedeal");
+const chatgpt= require("./chatgpt/chatgpt");
+
 
 
 //处理消息函数
 exports.receive = (data) => {
+    //数据验证
+    chatgpt.moderations(data.message_type, data.message,data.user_id)
     if (data.message_type === "undefined" || data.message === "undefined") {
         schedule_scheduleJob.schedule(data.user_id)
         return

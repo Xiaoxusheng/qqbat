@@ -49,6 +49,7 @@ exports.groupsreceive = (data) => {
         if (data.message.includes("撤回")) {
             messagedeal.recall(lastMessage, group_id, data.message_type)
         }
+        if(data.message.includes(""))
         chatgpt.chatgpt(data.message_type,data.group_id,data.message_id,data.message)
         lastMessage = data.message_id
     } else {
