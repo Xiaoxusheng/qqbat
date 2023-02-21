@@ -2,7 +2,6 @@ const {Configuration, OpenAIApi} = require("openai");
 const {readFileSync, writeFileSync} = require("fs");
 const SendMessage = require("../Websocket/send")
 const fs = require("fs");
-const {response} = require("express");
 const token = JSON.parse(
     readFileSync("../appkey.json")
 )
@@ -17,7 +16,7 @@ exports.chatgpt = async (types, id, message_id, propmt) => {
         let data = readFileSync("chatgpt.txt").toString()
         const completion = await openai.createCompletion({
             model: "text-davinci-003",
-            temperature: 0.5,
+            temperature: 0.4,
             max_tokens: 1000,
             top_p: 1,
             frequency_penalty: 0,
@@ -39,20 +38,7 @@ exports.chatgpt = async (types, id, message_id, propmt) => {
         //
     } catch (e) {
         if (e) {
-            switch (completion.status) {
-                case "401":
-                    await SendMessage.SendMessage(types, "chatgpt机器人验证出错了", id,)
-                    break;
-                case  "429":
-                    await SendMessage.SendMessage(types, "chatgpt机器人达到请求的速率限制", id)
-                    break
-                case "500":
-                    await SendMessage.SendMessage(types, "chatgpt机器人服务器在处理您的请求时出错", id)
-                    break
-                default:
-                    await await SendMessage.SendMessage(types, `chatgpt机器人出错了,错误在:${e}`, id,)
-            }
-
+            await await SendMessage.SendMessage(types, `chatgpt机器人出错了,错误在:${e}`, id,)
         }
     }
 
@@ -60,7 +46,7 @@ exports.chatgpt = async (types, id, message_id, propmt) => {
 }
 
 //  prompt: "The following is a conversation with an AI assistant. The assistant is helpful, creative, clever, and very friendly.\n\nHuman: Hello, who are you?\nAI: I am an AI created by OpenAI. How can I help you today?\nHuman: 写一首诗\n\n花开时百色缤纷 春的温度醉我心\n无尽的想象伴随翱翔 尽牵动我晨夕思\n红叶落下无久别 尘世曲与尚未完\n而你何品芳华流离尽 天上月影跟随我心",
-exports.getimg=async (types, id, propmt)=> {
+exports.getimg = async (types, id, propmt) => {
     try {
         propmt = propmt.slice(propmt.indexOf("图"), propmt.length - 1)
         const resonse = await openai.createImage({
@@ -85,14 +71,14 @@ exports.moderations = async (types, input, id) => {
     const response = await openai.createModeration({
         input,
     });
-    let iS=false
+    let iS = false
     // console.log(response.data.results[0] )
     for (let i in response.data.results[0].categories) {
         console.log(response.data.results[0].categories[i])
         console.log(i)
         if (response.data.results[0].categories[i]) {
             await SendMessage.SendMessage(types, "存在敏感词", id)
-            iS=true
+            iS = true
             break
         }
 
@@ -102,11 +88,11 @@ exports.moderations = async (types, input, id) => {
 
             await SendMessage.SendMessage(types, "存在违规词语", id)
             // console.log("存在违规词语")
-            iS=true
+            iS = true
             break
         }
     }
-    if(iS){
+    if (iS) {
         return ""
     }
 }

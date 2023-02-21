@@ -8,9 +8,6 @@ exports.schedule = () => {
         console.log("[INFO] 启动时间:", "-------->>", new Date().toLocaleString())
         sendmessage.SendMessage(data.types, data.data, data.user_id,)
     });
-
-
-
 }
 //设定时间推送消息
 exports.setTime = (types, res, id) => {
@@ -22,17 +19,17 @@ exports.setTime = (types, res, id) => {
               sendmessage.SendMessage(types, "QQ位数错误", id,)
               return
           }
-
-          const data = {
-              hour: res[0],
-              min: res[1],
-              user_id: res[2],
-              data: res[3] + "(消息为qq机器人自动推送)",
+    let [hour,min,user_id,data]=res
+          const datas = {
+              hour,
+              min,
+              user_id,
+              data: data + "(消息为qq机器人自动推送)",
               types: "private",
               id: id
 
           }
-          fs.writeFileSync("time.json", JSON.stringify(data))
+          fs.writeFileSync("time.json", JSON.stringify(datas))
           sendmessage.SendMessage(types, "设置成功了，靓仔", id,)
       } else {
           sendmessage.SendMessage(types, "输入时间格式不对", id,)

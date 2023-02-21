@@ -1,7 +1,7 @@
 const axios = require("axios")
 const {writeFileSync, readFileSync} = require("fs");
-const sendMessage = require("./Websocket/send")
-const config = require("./config.json")
+const sendMessage = require("../Websocket/send")
+const config = require("../config.json")
 
 let str = "", str1 = ""
 

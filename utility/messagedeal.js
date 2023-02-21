@@ -1,7 +1,7 @@
 const axios = require("axios")
 const fs = require("fs");
 const SendMessage = require("../Websocket/send");
-const getmessage=require("./getmessage")
+const getmessage = require("./getmessage")
 //已读消息
 exports.read = async ({message_id}) => {
     const {data: res} = await axios({
@@ -16,7 +16,7 @@ exports.read = async ({message_id}) => {
 }
 
 //撤回消息
-exports.recall = async (group_id, message_id, message_type) => {
+exports.recall = async (message_type, group_id, message_id,) => {
     try {
         const {data: res} = await axios({
             method: "post",
@@ -101,13 +101,16 @@ exports.get_group_member_list = async (group_id) => {
 * 706500000004313030330000000b646f776e656e63727970740000000130000000047175696300000001300400&amp;filetype=1003&amp;videotype=1&amp;subvideotype=0&amp;term=unknow]
 *
 * */
-exports.banrecall = async ({notice_type,operator_id,message_id,user_id,group_id}) => {
-    if (notice_type === "group_recall" && operator_id === operator_id) {
-      const message1=await  getmessage.getmessage("group",message_id,user_id)
-    await SendMessage.SendMessage("group",`[CQ:at,qq=${user_id}]撤回消息：\n ${message1.data.data.message}`,user_id)
-    }else if (notice_type === "friend_recall" ){
-        const message2=await  getmessage.getmessage("private",message_id,user_id)
-        await  SendMessage.SendMessage("private",`[CQ:at,qq=${user_id}]撤回消息：\n${message2.data.data.message}`,user_id)
+//防撤回
+exports.banrecall = async ({notice_type, operator_id, message_id, user_id, group_id}) => {
+    if (notice_type === "group_recall" && operator_id === user_id) {
+        const message1 = await getmessage.getmessage("group", message_id, user_id)
+        await SendMessage.SendMessage("group", `[CQ:at,qq=${user_id}]撤回消息：\n ${message1.data.data.message}`, user_id)
+    } else if (notice_type === "friend_recall") {
+        const message2 = await getmessage.getmessage("private", message_id, user_id)
+        await SendMessage.SendMessage("private", `[CQ:at,qq=${user_id}]撤回消息：\n${message2.data.data.message}`, user_id)
+    } else if (notice_type === "group_recall" && operator_id !== operator_id) {
+
     }
 
 }

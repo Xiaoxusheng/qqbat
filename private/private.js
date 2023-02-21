@@ -1,8 +1,8 @@
 const {writeFileSync,readFileSync} =require( "fs");
 const {SendMessage} = require("../Websocket/send");
-const send =require ("../app");
-const {setTime}= require ("../schedule_scheduleJob");
-const {getCookie, getclass} =require( "../getCookie");
+const getmessage=require("../utility/getmessage")
+const setTime= require ("../schedule_scheduleJob");
+const  getclass =require( "../utility/getCass");
 const chatgpt=require("../chatgpt/chatgpt")
 
 exports.privates = (data) => {
@@ -38,31 +38,31 @@ exports.privates = (data) => {
                     return;
                 }
                 let city = data.message.slice(0, data.message.indexOf("的"))
-                send.WeatherMessage(data.message_type, data.user_id, city)
+                getmessage.WeatherMessage(data.message_type, data.user_id, city)
                 break
             case "img":
                 if (data.message === status) {
                     return;
                 }
-                send.imgIs(data.message_type, data.user_id)
+                getmessage.imgIs(data.message_type, data.user_id)
                 break
             case "f":
                 if (data.message === status) {
                     return;
                 }
-                send.hotmessage(data.message_type, data.user_id)
+                getmessage.hotmessage(data.message_type, data.user_id)
                 break
             case "h":
                 if (data.message === status) {
                     return;
                 }
-                setTime(data.message_type, data.message, data.user_id)
+                setTime.setTime(data.message_type, data.message, data.user_id)
                 break
             case "w":
                 if (data.message === status) {
                     return;
                 }
-                getclass(data.message_type, data.message, data.user_id)
+                getclass.getclass(data.message_type, data.message, data.user_id)
                 break
             // default:
             //     sendmessage.SendMessage(data.message_type,

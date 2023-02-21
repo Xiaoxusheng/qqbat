@@ -108,4 +108,7 @@ writeFileSync("config.json",JSON.stringify(data))
 //
 //
 //
-//
+//今天的时间戳
+console.log( new Date(new Date().toLocaleDateString()).getTime())
+console.log(new Date().toLocaleDateString())
+console.log(Date.now())
