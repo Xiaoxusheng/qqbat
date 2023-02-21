@@ -6,7 +6,7 @@ const config = require("./config.json")
 let str = "", str1 = ""
 
 //获取cookie
-async function getCookie(types,id) {
+async function getCookie(types, id) {
     try {
 
         let cookie = []
@@ -46,7 +46,7 @@ async function getCookie(types,id) {
 }
 
 exports.getclass = async (types, week,id,) => {
-    const cookie = await  getCookie(types,id)
+    const cookie = await getCookie(types, id)
     if (week < 2 || week > 19) {
         await sendMessage.SendMessage(types, "没课啊靓仔", id)
         return
@@ -91,9 +91,9 @@ exports.getclass = async (types, week,id,) => {
         })
         console.log(str)
         await sendMessage.SendMessage(types, str, id)
-        data= JSON.parse(readFileSync("config.json",))
+        data = JSON.parse(readFileSync("config.json",))
         data.week = week
-        writeFileSync("config.json",JSON.stringify(data))
+        writeFileSync("config.json", JSON.stringify(data))
     } catch (e) {
         await sendMessage.SendMessage(types, `输入有误:${e}`, id)
     }
