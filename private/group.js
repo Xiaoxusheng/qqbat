@@ -4,7 +4,8 @@ const fs = require("fs");
 const chatgpt = require("../chatgpt/chatgpt")
 const messagedeal = require("../utility/messagedeal")
 const {readFileSync} = require("fs");
-let lastMessage
+
+
 
 //处理群消息逻辑函数
 exports.groupsreceive = (data) => {
@@ -19,7 +20,7 @@ exports.groupsreceive = (data) => {
         return;
     }
     groupList1 = JSON.parse(groupList1)
-    get_group_member_list(data.group_id)
+    messagedeal.get_group_member_list(data.group_id)
     let groupList2 = JSON.parse(fs.readFileSync("./private/group.json"))
     if (groupList1 !== groupList2) {
         for (let i = 0; i < groupList1.length; i++) {

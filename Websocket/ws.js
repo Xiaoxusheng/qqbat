@@ -1,6 +1,5 @@
 const {WebSocketServer} = require("ws")
 const receive = require("../receive")
-const SendMessage = require("./send")
 const ws = new WebSocketServer({port: 5700});
 
 
@@ -17,7 +16,7 @@ exports.wsclint = () => {
 
         });
     })
-    ws.on("close", socket => {
+    ws.on("close", () => {
         console.log("推送服务器断开连接")
     })
 }

@@ -1,12 +1,6 @@
-const axios=require("axios")
 const ws =require("./Websocket/ws")
-const sendMessage= require("./Websocket/send")
-const fs = require("fs");
 const schedule = require("schedule_scheduleJob");
-const {readFileSync, writeFile, writeFileSync} = require("fs");
-
-
-let weather, hot, str = '', filestr
+const {readFileSync,writeFileSync} = require("fs");
 const list = [3096407768, 2195986238]
 const i = Math.round(Math.random(0, 1))
 //监听消息

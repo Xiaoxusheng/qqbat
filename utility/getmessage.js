@@ -1,8 +1,8 @@
 const Sendmessage = require("../Websocket/send")
 //此函数是根据message_id获取消息，相互用于撤回消息查询
 const axios = require("axios");
-const sendMessage = require("../Websocket/send");
 const fs = require("fs");
+let weather, hot, str = '', filestr
 exports.getmessage = async (types, message_id, id) => {
     try {
         const res = axios({
@@ -111,7 +111,7 @@ async function getphone() {
 //发送图片
 exports.imgIs = (types, id,) => {
     try {
-        let imglist = JSON.parse(fs.readFileSync("imgUrl.json"))
+        let imglist = JSON.parse(fs.readFileSync("../imgUrl.json"))
         filestr = "[CQ:image,file=" + imglist[Math.floor(Math.random(0, 1) * imglist.length) + 1].url + "]"
         sendMessage.SendMessage(types, filestr, id)
     } catch (e) {
