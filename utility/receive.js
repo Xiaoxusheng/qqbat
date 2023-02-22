@@ -1,17 +1,16 @@
 const sendmessage = require("../Websocket/send")
 const read = require("./messagedeal")
-const schedule_scheduleJob=require("./schedule_scheduleJob")
-const group=require("../private/group")
-const privatrchat=require("../private/private")
+const schedule_scheduleJob = require("./schedule_scheduleJob")
+const group = require("../private/group")
+const privatrchat = require("../private/private")
 const messagedeal = require("./messagedeal");
-const chatgpt= require("../chatgpt/chatgpt");
-
+const chatgpt = require("../chatgpt/chatgpt");
 
 
 //处理消息函数
 exports.receive = (data) => {
     //数据验证
-    chatgpt.moderations(data.message_type, data.message,data.user_id)
+    chatgpt.moderations(data.message_type, data.message, data.user_id)
 
     if (data.message_type === "undefined" || data.message === "undefined") {
         schedule_scheduleJob.schedule(data.user_id)

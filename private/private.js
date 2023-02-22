@@ -1,9 +1,9 @@
-const {writeFileSync,readFileSync} =require( "fs");
+const {writeFileSync, readFileSync} = require("fs");
 const {SendMessage} = require("../Websocket/send");
-const getmessage=require("../utility/getmessage")
-const setTime= require ("../utility/schedule_scheduleJob");
-const  getclass =require( "../utility/getCass");
-const chatgpt=require("../chatgpt/chatgpt")
+const getmessage = require("../utility/getmessage")
+const setTime = require("../utility/schedule_scheduleJob");
+const getclass = require("../utility/getCass");
+const chatgpt = require("../chatgpt/chatgpt")
 
 
 exports.privates = (data) => {
