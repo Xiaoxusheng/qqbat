@@ -6,7 +6,6 @@ const messagedeal = require("../utility/messagedeal")
 const {readFileSync} = require("fs");
 
 
-
 //处理群消息逻辑函数
 exports.groupsreceive = (data) => {
 
