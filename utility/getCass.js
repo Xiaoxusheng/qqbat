@@ -53,7 +53,7 @@ exports.getclass = async (types, week,id,) => {
     }
 
     if (config.week === week) {
-        let resp = JSON.parse(readFileSync("class.json"))
+        let resp = JSON.parse(readFileSync("../class.json"))
         console.log(resp)
         let j = resp.sort((a, b) => {
             return a.dayOfWeek - b.dayOfWeek

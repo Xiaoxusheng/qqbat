@@ -26,7 +26,7 @@ exports.recall = async (message_type, group_id, message_id,) => {
             },
 
         })
-        await SendMessage.SendMessage(message_type, "撤回成功", group_id,)
+            // await SendMessage.SendMessage(message_type, "撤回成功", group_id,)
         console.log(res)
     } catch (e) {
         if (e) {

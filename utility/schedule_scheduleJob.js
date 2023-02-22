@@ -1,6 +1,7 @@
 const schedule = require("node-schedule");
-const sendmessage = require("./Websocket/send")
+const sendmessage = require("../Websocket/send")
 const fs = require("fs")
+
 
 exports.schedule = () => {
     const data = fs.readFileSync("time.json")

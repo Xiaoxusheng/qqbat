@@ -1,10 +1,10 @@
-const sendmessage = require("./Websocket/send")
-const read = require("./utility/messagedeal")
+const sendmessage = require("../Websocket/send")
+const read = require("./messagedeal")
 const schedule_scheduleJob=require("./schedule_scheduleJob")
-const group=require("./private/group")
-const privatrchat=require("./private/private")
-const messagedeal = require("./utility/messagedeal");
-const chatgpt= require("./chatgpt/chatgpt");
+const group=require("../private/group")
+const privatrchat=require("../private/private")
+const messagedeal = require("./messagedeal");
+const chatgpt= require("../chatgpt/chatgpt");
 
 
 

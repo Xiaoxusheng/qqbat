@@ -1,5 +1,5 @@
 const {WebSocketServer} = require("ws")
-const receive = require("../receive")
+const receive = require("../utility/receive")
 const ws = new WebSocketServer({port: 5700});
 
 
