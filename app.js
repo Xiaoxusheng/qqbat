@@ -10,9 +10,9 @@ ws.wsclint()
 
 schedule.scheduleJob({hour: 0, minute: 0, second: 0}, function () {
     console.log("[INFO] 启动时间:", "-------->>", new Date().toLocaleString())
-    let respset=JSON.parse(readFileSync("config.json"))
-    respset.chatmessagenumber=0
-    writeFileSync("config.json",JSON.stringify(respset))
+    let respset = JSON.parse(readFileSync("config.json"))
+    respset.chatmessagenumber = 0
+    writeFileSync("config.json", JSON.stringify(respset))
 });
 
 

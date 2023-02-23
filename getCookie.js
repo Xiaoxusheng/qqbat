@@ -4,12 +4,14 @@ const sendMessage = require("./Websocket/send")
 const config = require("./config.json")
 
 let str = "", str1 = ""
-config.recallswith=false
+console.log(config.recallswith)
+config.recallswith=true
 data= JSON.parse(readFileSync("config.json",))
 console.log(data)
 data.recallswith=false
 JSON.stringify(data)
 writeFileSync("config.json",JSON.stringify(data))
+console.log(data.recallswith)
 // //获取cookie
 // async function getCookie() {
 //     try {

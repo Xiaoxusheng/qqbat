@@ -1,17 +1,1 @@
-{
-  "week": "2",
-  "recallswith": false,
-  "chatmessagenumber": 0,
-  "time":1676988546371,
-  "chat": [
-    {
-      "#聊天": false,
-      "#天气": false,
-      "#重置": false,
-      "#视频": false,
-      "#图片": false,
-      "#学习通": false,
-      "#热点": false
-    }
-  ]
-}
+{"week":"2","recallswith":false,"chatmessagenumber":0,"time":1676988546371,"chat":[{"#聊天":false,"#天气":false,"#重置":false,"#视频":false,"#图片":false,"#学习通":false,"#热点":false}]}

@@ -3,7 +3,8 @@ const getVideo = require("../app")
 const fs = require("fs");
 const chatgpt = require("../chatgpt/chatgpt")
 const messagedeal = require("../utility/messagedeal")
-const {readFileSync} = require("fs");
+const {readFileSync, writeFileSync} = require("fs");
+const config = require("../config.json")
 
 
 //处理群消息逻辑函数
@@ -46,6 +47,24 @@ exports.groupsreceive = (data) => {
             messagedeal.banchat(data.group_id, QQid, time)
             return
         }
+        if (data.message.includes("关闭防撤功能") || data.message.includes("打开防撤功能")) {
+            try {
+                const res = JSON.parse(readFileSync("../config.json"))
+                if (res.recallswith && data.message.includes("打开防撤功能")) {
+                    SendMessage.SendMessage(data.message_type, "当前已经打开,请不要重复打开", data.group_id)
+                    return;
+                }
+                if (!res.recallswith && data.message.includes("关闭防撤功能")) {
+                    SendMessage.SendMessage(data.message_type, "当前已经关闭,请不要重复关闭", data.group_id)
+                    return;
+                }
+                res.recallswith = !res.recallswith
+                writeFileSync("../config.json", JSON.stringify(res))
+                SendMessage.SendMessage(data.message_type, `防撤功能更改成功|：：当前撤功能${res.recallswith ? "打开" : "关闭"}`, data.group_id)
+            } catch (e) {
+                SendMessage.SendMessage(data.message_type, "防撤回功能更改失败", data.group_id)
+            }
+        }
 
         if (data.message.includes("视频")) {
             getVideo.getVideo(data.message_type, data.group_id)
@@ -58,7 +77,6 @@ exports.groupsreceive = (data) => {
             // {"post_type":"message","message_type":"group","time":1677072224,"self_id":2673893724,"sub_type":"normal",
             //     "sender":{"age":0,"area":"","card":"","level":"","nickname":"Ra","role":"member","sex":"unknown","title":"","user_id":3096407768},"user_id":3096407768,"message_id":-67439232,"anonymous":null,"group_id":682671449,"message":"[CQ:reply,id=-331723533][CQ:at,qq=3096407768] 撤回",
             //     "raw_message":"[CQ:reply,id=-331723533][CQ:at,qq=3096407768] 撤回","font":0,"message_seq":2111}
-
 
             let message_id = data.message.slice(data.message.indexOf("=") + 1, data.message.indexOf("]"))
             messagedeal.recall(data.message_type, data.group_id, message_id,)

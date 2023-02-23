@@ -2,6 +2,7 @@ const axios = require("axios")
 const fs = require("fs");
 const SendMessage = require("../Websocket/send");
 const getmessage = require("./getmessage")
+
 //已读消息
 exports.read = async ({message_id}) => {
     const {data: res} = await axios({
@@ -26,7 +27,7 @@ exports.recall = async (message_type, group_id, message_id,) => {
             },
 
         })
-            // await SendMessage.SendMessage(message_type, "撤回成功", group_id,)
+        // await SendMessage.SendMessage(message_type, "撤回成功", group_id,)
         console.log(res)
     } catch (e) {
         if (e) {
@@ -103,6 +104,10 @@ exports.get_group_member_list = async (group_id) => {
 * */
 //防撤回
 exports.banrecall = async ({notice_type, operator_id, message_id, user_id, group_id}) => {
+   let res= JSON.parse(fs.readFileSync("../config.json"))
+    if (!res.recallswith) {
+        return
+    }
     if (notice_type === "group_recall" && operator_id === user_id) {
         const message1 = await getmessage.getmessage("group", message_id, user_id)
         await SendMessage.SendMessage("group", `[CQ:at,qq=${user_id}]撤回消息：\n ${message1.data.data.message}`, user_id)
@@ -112,7 +117,6 @@ exports.banrecall = async ({notice_type, operator_id, message_id, user_id, group
     } else if (notice_type === "group_recall" && operator_id !== operator_id) {
 
     }
-
 }
 
 /*
