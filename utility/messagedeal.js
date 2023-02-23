@@ -74,7 +74,7 @@ exports.get_group_member_list = async (group_id) => {
             }
         })
         console.log(res.data.data)
-        fs.writeFileSync("./private/groupList.json", res.data.data)
+        fs.writeFileSync("../private/groupList.json", res.data.data)
 
 
     } catch (e) {
@@ -104,7 +104,7 @@ exports.get_group_member_list = async (group_id) => {
 * */
 //防撤回
 exports.banrecall = async ({notice_type, operator_id, message_id, user_id, group_id}) => {
-   let res= JSON.parse(fs.readFileSync("../config.json"))
+    let res = JSON.parse(fs.readFileSync("../config.json"))
     if (!res.recallswith) {
         return
     }
@@ -114,8 +114,6 @@ exports.banrecall = async ({notice_type, operator_id, message_id, user_id, group
     } else if (notice_type === "friend_recall") {
         const message2 = await getmessage.getmessage("private", message_id, user_id)
         await SendMessage.SendMessage("private", `[CQ:at,qq=${user_id}]撤回消息：\n${message2.data.data.message}`, user_id)
-    } else if (notice_type === "group_recall" && operator_id !== operator_id) {
-
     }
 }
 

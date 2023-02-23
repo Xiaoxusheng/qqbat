@@ -5,6 +5,7 @@ const chatgpt = require("../chatgpt/chatgpt")
 const messagedeal = require("../utility/messagedeal")
 const {readFileSync, writeFileSync} = require("fs");
 const config = require("../config.json")
+const sendmessage = require("../Websocket/send");
 
 
 //处理群消息逻辑函数
@@ -31,7 +32,13 @@ exports.groupsreceive = (data) => {
 
     }
 
-    if (data.sender.nickname === "Ra") {
+
+    // {"post_type":"message","message_type":"group",
+    //     "time":1677149263,"self_id":2673893724,"sub_type":"normal","anonymous":null,"message":"你好","" +
+    // "sender":{"age":0,"area":"","card":"","level":"","nickname":"Ra","role":"member","sex":"unknown","title":"","user_id":3096407768},
+    //     "message_id":-2062953045,"font":0,"group_id":682671449,"message_seq":2341,"raw_message":"你好","user_id":3096407768}
+
+    if (data.user_id === config.manager[0]) {
         // console.log(data.message.includes("[CQ:at,qq=3096407768] "))注意这里的]后面有一个空格,不然会出问题
         if (data.message.includes("[CQ:at,qq=3096407768] ")) {
             SendMessage.SendMessage(data.message_type, "[CQ:at,qq=" + data.sender.user_id + "]", data.group_id,)

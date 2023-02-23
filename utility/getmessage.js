@@ -1,8 +1,9 @@
 const Sendmessage = require("../Websocket/send")
-//此函数是根据message_id获取消息，相互用于撤回消息查询
 const axios = require("axios");
-const fs = require("fs");
+const {readFile,writeFile} = require("fs");
 let weather, hot, str = '', filestr
+
+//此函数是根据message_id获取消息，用于撤回消息查询
 exports.getmessage = async (types, message_id, id) => {
     try {
         const res = axios({
@@ -82,7 +83,7 @@ exports.hotmessage = async (types, id) => {
 
 //百度热搜
 function BaiduHot() {
-    fs.readFile("../goserve/test/hot.txt", (err, file) => {
+    readFile("../goserve/test/hot.txt", (err, file) => {
         if (err) {
             console.log("读文件出错:", err)
             throw err
@@ -133,7 +134,7 @@ async function getlist() {
         str += "网名:\t" + dataKey.nickname + "\t," + "备注：\t" + dataKey.remark + ",\t" + "QQ: \t" + dataKey.user_id + "\n"
 
     })
-    fs.writeFile("好友列表.txt", str, (err) => {
+    writeFile("好友列表.txt", str, (err) => {
         if (err) {
             throw err
 
