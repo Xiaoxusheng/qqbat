@@ -36,7 +36,7 @@ exports.privates = (data) => {
                     SendMessage.SendMessage(data.message_type, `已发消息|${number.chatmessagenumber}`, data.group_id)
                 }
                 // send.QQcaht(data.message_type, data.user_id, data.message)
-                chatgpt.chatgpt(data.message_type, data.user_id,data.message_id, data.message)
+                chatgpt.chatgpt(data.message_type, data.user_id, data.message_id, data.message)
                 break
             case "t":
                 if (data.message === status) {

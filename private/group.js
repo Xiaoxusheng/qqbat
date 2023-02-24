@@ -91,7 +91,7 @@ exports.groupsreceive = (data) => {
             const number = JSON.parse(readFileSync("../config.json"))
             SendMessage.SendMessage(data.message_type, `已发消息|${number.chatmessagenumber}`, data.group_id)
         }
-        if(data.message.includes("CQ:image")){
+        if (data.message.includes("CQ:image")) {
             messagedeal.gettext(data)
         }
         chatgpt.chatgpt(data.message_type, data.group_id, data.message_id, data.message)

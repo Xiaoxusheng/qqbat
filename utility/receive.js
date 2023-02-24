@@ -34,8 +34,8 @@ exports.receive = (data) => {
         if (data.message_type === "group") {
             group.groupsreceive(data)
             return;
-        }else {
-              privatrchat.privates(data)
+        } else {
+            privatrchat.privates(data)
         }
     }
     console.log("消息类型：", data.message_type, "\n")

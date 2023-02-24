@@ -111,15 +111,15 @@ console.log(config.manager[0])
 //
 //
 //今天的时间戳
-console.log( new Date(new Date().toLocaleDateString()).getTime())
+console.log(new Date(new Date().toLocaleDateString()).getTime())
 console.log(new Date().toLocaleDateString())
 console.log(Date.now())
-gettext=async ( )=>{
-    const res=await axios({
-        url:"http://127.0.0.1:5000/ocr_image",
-        method:"get",
-        params:{
-            image:1190212098
+gettext = async () => {
+    const res = await axios({
+        url: "http://127.0.0.1:5000/ocr_image",
+        method: "get",
+        params: {
+            image: 1190212098
         }
     })
     console.log(res)
