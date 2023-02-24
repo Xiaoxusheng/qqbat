@@ -1,6 +1,6 @@
 const Sendmessage = require("../Websocket/send")
 const axios = require("axios");
-const {readFile,writeFile} = require("fs");
+const {readFile, writeFile} = require("fs");
 let weather, hot, str = '', filestr
 
 //此函数是根据message_id获取消息，用于撤回消息查询
@@ -79,18 +79,6 @@ exports.hotmessage = async (types, id) => {
             await sendMessage.SendMessage(types, "热点出错了:"+e, id)
         }
     }
-}
-
-//百度热搜
-function BaiduHot() {
-    readFile("../goserve/test/hot.txt", (err, file) => {
-        if (err) {
-            console.log("读文件出错:", err)
-            throw err
-        }
-        hot = file.toString()
-        console.log((hot))
-    })
 }
 
 //设置为12

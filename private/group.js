@@ -80,11 +80,9 @@ exports.groupsreceive = (data) => {
         // [CQ:reply,id=-1292667580][CQ:at,qq=2673893724] [CQ:at,qq=2673893724] 撤回
         if (data.message.includes("撤回")) {
             //[CQ:reply,id=-2019851725][CQ:at,qq=3096407768] 撤回
-
             // {"post_type":"message","message_type":"group","time":1677072224,"self_id":2673893724,"sub_type":"normal",
             //     "sender":{"age":0,"area":"","card":"","level":"","nickname":"Ra","role":"member","sex":"unknown","title":"","user_id":3096407768},"user_id":3096407768,"message_id":-67439232,"anonymous":null,"group_id":682671449,"message":"[CQ:reply,id=-331723533][CQ:at,qq=3096407768] 撤回",
             //     "raw_message":"[CQ:reply,id=-331723533][CQ:at,qq=3096407768] 撤回","font":0,"message_seq":2111}
-
             let message_id = data.message.slice(data.message.indexOf("=") + 1, data.message.indexOf("]"))
             messagedeal.recall(data.message_type, data.group_id, message_id,)
             messagedeal.recall(data.message_type, data.group_id, data.message_id)
@@ -92,6 +90,9 @@ exports.groupsreceive = (data) => {
         if (data.message.includes("消息数")) {
             const number = JSON.parse(readFileSync("../config.json"))
             SendMessage.SendMessage(data.message_type, `已发消息|${number.chatmessagenumber}`, data.group_id)
+        }
+        if(data.message.includes("CQ:image")){
+            messagedeal.gettext(data)
         }
         chatgpt.chatgpt(data.message_type, data.group_id, data.message_id, data.message)
     } else {

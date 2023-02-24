@@ -121,3 +121,22 @@ exports.banrecall = async ({notice_type, operator_id, message_id, user_id, group
 *  {"post_type":"message","message_type":"group","time":1676787192,"self_id":2673893724,"sub_type":"normal","raw_message":"你会什么",
 * "sender":{"age":0,"area":"","card":"","level":"","nickname":"Ra","role":"member","sex":"unknown","title":"","user_id":3096407768},
 * "message_id":592689879,"message_seq":1672,"user_id":3096407768,"anonymous":null,"font":0,"group_id":682671449,"message":"你会什么"}*/
+//图片ocr /ocr_image
+/*{"post_type":"message","message_type":"private","time":1677214960,"self_id":2673893724,
+    "sub_type":"friend","sender":{"age":0,"nickname":"Ra","sex":"unknown","user_id":3096407768},
+    "message_id":1190212098,"user_id":3096407768,"target_id":2673893724,
+    "message":"[CQ:image,file=0a99369c2c0c65aa57c5978118d656f1.image," +
+    "url=https://c2cpicdw.qpic.cn/offpic_new/3096407768//3096407768-1562379565-0A99369C2C0C65AA57C5978118D656F1/0?term=3\u0026amp;is_origin=0]",
+    "raw_message":"[CQ:image,file=0a99369c2c0c65aa57c5978118d656f1.image," +
+   "url=https://c2cpicdw.qpic.cn/offpic_new/3096407768//3096407768-1562379565-0A99369C2C0C65AA57C5978118D656F1/0?term=3\u0026amp;is_origin=0]","font":0}*/
+exports.gettext=async ( {message_type,user_id,message_id,group_id,url})=>{
+   const res=await axios({
+         url:"http://127.0.0.1:5000/ocr_image",
+         method:"get",
+         params:{
+             image:message_id
+         }
+     })
+  await  SendMessage.SendMessage(message_type,res.data,group_id?group_id:user_id)
+    console.log(res)
+}

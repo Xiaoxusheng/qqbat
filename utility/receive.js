@@ -23,7 +23,7 @@ exports.receive = (data) => {
     /*{"post_type":"notice","notice_type":"notify","time":1677068043,"self_id":2673893724,"sub_type":"poke","user_id":3096407768,"sender_id":3096407768,"target_id":2673893724}*/
     //{"post_type":"notice","notice_type":"notify","time":1677152688,"self_id":2673893724,"sub_type":"poke","sender_id":3096407768,"target_id":2673893724,"group_id":682671449,"user_id":3096407768}
     if (data.post_type === "notice" && data.notice_type === "notify" && data.sub_type === "poke") {
-        sendmessage.SendMessage("group", `[CQ:poke,qq=${data.user_id}]`, data.group_id,)
+        sendmessage.SendMessage("group", `[CQ:poke,qq=${data.sender_id}]`, data.group_id,)
         return;
     }
 
@@ -31,7 +31,7 @@ exports.receive = (data) => {
         //已读消息
         read.read(data.message_id)
 
-        if(data.message_type==="group"){
+        if (data.message_type === "group") {
             group.groupsreceive(data)
             return;
         }else {
