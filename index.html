@@ -1,13 +1,378 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="en" style="width:100%;height:100%;padding: 0;padding-left: 10px;padding-right:10px;box-sizing: border-box;">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<script>
+    　　 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    　　 <title>邮件提醒</title>
+    　　  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    　  </head>
+<body style="margin: 0 auto; padding: 0;width:100%;min-width:600px;height: 100%; text-align:center;display: inline-block;box-sizing: border-box;">
+<table align="center"  border="0" cellpadding="0" cellspacing="0" style="background-color: #fff;
+    color: #434245;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 600px;
+    table-layout: fixed;
+    border-collapse: collapse;
+    font-family: -apple-system,BlinkMacSystemFont,PingFang-SC-Regular,Hiragino Sans GB,Microsoft Yahei,Arial,sans-serif" >
+    <tr height="115"></tr>
+    <tr>
+        <td>
+            <div style="text-align: center;width:132px;height:48px">
+                <img src="https://cdn.sspai.com/temp/notice_email/assets/img/sspai_logo.png?v={{.Timestamp}}" border="0" style="display:block;width: 100%;height: 100%" alt="title">
+            </div>
+        </td>
+        <td >
+            <div style="text-align:right;font-weight:14px;line-height: 20px;color:#292525;">{{.Date}}</div>
+        </td>
+    </tr>
+</table>
+<!-- 信息汇总 -->
+<table ID="info_table" align="center" width="100%" border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #fff;
+    padding-top: 20px;
+    color: #434245;
+    margin: 0 auto;
+    max-width: 600px;
+    table-layout: fixed;
+    border-collapse: collapse;
+    font-family: -apple-system,BlinkMacSystemFont,PingFang-SC-Regular,Hiragino Sans GB,Microsoft Yahei,Arial,sans-serif" >
+    <tbody style="background:#fff;">
+    <tr height="90"></tr>
+    <tr>
+        <td align="center"  colspan="2">
+            <div style="font-size: 18px;font-weight:500;line-height: 25px;color:#292525;white-space: normal">你好，{{.Nickname}}</div>
+            <div style="font-size:14px;
+                    font-family:PingFangSC-Regular;
+                    font-weight:400;
+                    color:rgba(155,155,155,1);
+                    line-height:20px;">以下是你今日信息汇总</div>
+        </td>
+    </tr>
+    <tr height="33"></tr>
+    <tr>
+        <td align="center"  colspan="2">
+            <div>
+                <div style="background: url('https://cdn.sspai.com/temp/notice_email/assets/img/card_follow.png?v={{.Timestamp}}') no-repeat 0 0/ 100% 100%;background-size:100% 100%; display: inline-block; width: 26.5%;height: auto;position:relative; padding-left: 22px;padding-top:18px;box-sizing: border-box;text-align:left; box-shadow: 0 6px 20px 0 rgba(255, 27, 27, .45) ;border-radius: 13px;">
+                            <span style="display: block;font-size:14px;
+                            font-family:PingFangSC-Medium;
+                            font-weight:500;
+                            color:#FFFFFF;
+                            line-height:20px;">新增关注</span>
+                    <span style="padding-top:19px;font-size:40px;
+                             display: block;
+                             font-family:-apple-system,BlinkMacSystemFont,PingFang-SC-Regular,Hiragino Sans GB,Microsoft Yahei,Arial,sans-serif;
+                             font-weight:600;
+                             color:#FFFFFF;
+                             line-height:56px;">{{.AddFollowTotal}}</span>
+                </div>
+                <div style="background: url('https://cdn.sspai.com/temp/notice_email/assets/img/card_comment.png?v={{.Timestamp}}') no-repeat 0 0/ 100% 100%;background-size:cover; display: inline-block; width: 26.5%;height: auto; margin-left: 15px; position:relative; padding-left: 22px;padding-top:18px;box-sizing: border-box;text-align:left;box-shadow:0 6px 20px 0 rgba(44, 213, 220, .45);border-radius: 13px;">
+                            <span style="display: block;font-size:14px;
+                            font-family:PingFangSC-Medium;
+                            font-weight:500;
+                            color:#FFFFFF;
+                            line-height:20px;">评论回复</span>
+                    <span style="display: block;padding-top:19px;font-size:40px;
+                             font-family:-apple-system,BlinkMacSystemFont,PingFang-SC-Regular,Hiragino Sans GB,Microsoft Yahei,Arial,sans-serif;
+                             font-weight:600;
+                             color:#FFFFFF;
+                             line-height:56px;">{{.CommentTotal}}</span>
+                </div>
+                <div style="background: url('https://cdn.sspai.com/temp/notice_email/assets/img/card_power.png?v={{.Timestamp}}') no-repeat 0 0/ 100% 100%;background-size:cover; display: inline-block; margin-left: 15px; width: 26.5%;height: auto; position:relative; padding-left: 22px;padding-top:18px;box-sizing: border-box;text-align:left;box-shadow: 0 6px 20px 0 rgba(255, 187, 21, .45);border-radius: 13px;">
+                            <span style="display: block;font-size:14px;
+                            font-family:PingFangSC-Medium;
+                            font-weight:500;
+                            color:#FFFFFF;
+                            line-height:20px;">充电鼓励</span>
+                    <span style="display: block;padding-top:19px;font-size:40px;
+                              font-family:-apple-system,BlinkMacSystemFont,PingFang-SC-Regular,Hiragino Sans GB,Microsoft Yahei,Arial,sans-serif;
+                             font-weight:600;
+                             color:#FFFFFF;
+                             line-height:56px;">{{.LikeArticleTotal}}</span>
+                </div>
+            </div>
+        </td>
+    </tr>
+    {{if gt (len .Comments) 0}}
+    <tr height="54"></tr>
+    <tr>
+        <td align="left"  colspan="2">
+            <div style="padding: 0 9px;display: flex;align-items: center;">
+                <img src="https://cdn.sspai.com/temp/notice_email/assets/img/ic_comment.png?v={{.Timestamp}}" width="23" height="22" alt="">
+                <span style="display: inline-block;
+                        margin-left:9px;
+                        font-size:20px;
+                        font-family:PingFangSC-Medium;
+                        font-weight:500;
+                        color:#000000;
+                        line-height:28px;">理性的讨论可以带来更多思考</span>
+            </div>
+        </td>
+    </tr>
+    {{range .Comments}}
+    <tr height="24"></tr>
+    <tr>
+        <td align="center"  colspan="2">
+            <div style="padding: 0 10% 0 8%;">
+                <div style="display: flex;align-items: center;">
+                    <!-- 跳转至用户主页 -->
+                    <a href="https://beta.sspai.com/u/{{.Slug}}" target="_blank" style="width:50px;height:50px;display:inline-block;text-decoration: none;">
+                        <img src="" width="50" height="50" alt="" style="border-radius: 50%;"/>
+                    </a>
+                    <span style="margin-left:10px;
+                            font-size:14px;
+                            font-family:-apple-system,BlinkMacSystemFont,PingFang-SC-Regular,Hiragino Sans GB,Microsoft Yahei,Arial,sans-serif;
+                            font-weight:400;
+                            color:rgba(155,155,155,1);
+                            line-height:20px;
+                            text-align: left;">
+                                <!-- 跳转至用户主页 -->
+                                <a href="https://beta.sspai.com/u/{{.Slug}}" target="_blank" style="
+                                text-decoration: none;
+                                font-size:14px;
+                                font-family:-apple-system,BlinkMacSystemFont,PingFang-SC-Regular,Hiragino Sans GB,Microsoft Yahei,Arial,sans-serif;
+                                font-weight:500;
+                                color:rgba(74,74,74,1);
+                                line-height:20px;
+                                display: inline-block;"> {{.Nickname}}
+                                </a>
+                                <span style="
+                                 font-size:14px;
+                                 font-family:-apple-system,BlinkMacSystemFont,PingFang-SC-Regular,Hiragino Sans GB,Microsoft Yahei,Arial,sans-serif;
+                                 font-weight:400;
+                                 color:rgba(155,155,155,1);
+                                 line-height:20px;;">&nbsp;在&nbsp;</span>
+                        <!-- 跳转至文章地址 -->
+                                <a  href="https://beta.sspai.com/post/{{.ArticleID}}" target="_blank" style="
+                                text-decoration: none;
+                                color:rgba(74,74,74,1);
+                                ">《{{.ArticleTitle}}》</a>
+                                 <span style="
+                                 font-size:14px;
+                                 font-family:-apple-system,BlinkMacSystemFont,PingFang-SC-Regular,Hiragino Sans GB,Microsoft Yahei,Arial,sans-serif;
+                                 font-weight:400;
+                                 color:rgba(155,155,155,1);
+                                 line-height:20px;;">一文中回复你说：</span>
+                            </span>
+                </div>
+                <div style="padding-left: 10%;padding-top:12px;display: flex;">
+                            <span style="width: 20px;height: 20px; display: inline-block; ">
+                                <img width= "20" height= "20" src="https://cdn.sspai.com/temp/notice_email/assets/img/email_yinhao.png?v={{$.Timestamp}}" alt="引号">
+                            </span>
+                    <span style="display: inline-block;
+                            text-align: left;
+                            margin-left: 6px;
+                            font-size:14px;
+                            font-family:PingFangSC-Regular;
+                            font-weight:400;
+                            color:rgba(74,74,74,1);
+                            line-height:20px;">{{.Comment}}</span>
+                </div>
+                <div style="width:100%;text-align: right;margin-top:12px;">
+                    <!-- 跳转至文章评论处 -->
+                    <a href="https://beta.sspai.com/post/{{.ArticleID}}#comment-{{.ID}}" target="_blank" style="display: inline-block;
+                            text-align: center;
+                            width:44px;
+                            height:22px;
+                            background:#EFEFEF;
+                            border-radius:11px;
+                            font-size:12px;
+                            font-family:PingFangSC-Regular;
+                            font-weight:400;
+                            color:#4A4A4A;
+                            line-height: 22px;
+                            text-decoration: none;">回复</a>
+                </div>
+            </div>
+        </td>
+    </tr>
+    {{end}}
+    <tr height="82"></tr>
+    <tr>
+        <td align="center"  colspan="2">
+            <!-- 跳转至通知中心 -->
+            <a href="https://beta.sspai.com/notice/common"><img width="124" height="40" src='https://cdn.sspai.com/temp/notice_email/assets/img/btn-comment.png?v={{.Timestamp}}' alt="查看全部评论"/></a>
+        </td>
+    </tr>
+    {{end}}
+    {{if gt (len .Users) 0}}
+    <tr height="50"></tr>
+    <tr>
+        <td align="left"  colspan="2">
+            <div style="border-top: 2px dotted #DFDFDF"></div>
+        </td>
+    </tr>
+    <tr height="50"></tr>
+    <tr>
+        <td align="left"  colspan="2">
+            <div style="padding: 0 9px;display: flex;align-items: center;">
+                <img src="https://cdn.sspai.com/temp/notice_email/assets/img/ic_follow.png?v={{.Timestamp}}" width="23" height="22" alt="">
+                <span style="display: inline-block;
+                        margin-left:9px;
+                        font-size:20px;
+                        font-family:PingFangSC-Medium;
+                        font-weight:500;
+                        color:#000000;
+                        line-height:28px;">他们被你吸引</span>
+            </div>
+        </td>
+    </tr>
+    <tr height="34"></tr>
+    <tr>
+        <td align="left"  colspan="2">
+            <div style="padding: 0 10% 0 8%;display: flex; align-items:center;">
+                {{range .Users}}
+                <a href="https://beta.sspai.com/u/{{.Slug}}" style="display:inline-block;width:50px;height:50px;padding:0 20px; border-radius: 50%;">
+                    <img width="50" height="50" src="{{.Avatar}}" style="border-radius: 50%;" alt="用户"/>
+                </a>
+                {{end}}
+                <span style="display: inline-block;
+                        margin-left: 10px;
+                        font-size:14px;
+                        font-family:-apple-system,BlinkMacSystemFont,PingFang-SC-Regular,Hiragino Sans GB,Microsoft Yahei,Arial,sans-serif;
+                        font-weight:400;
+                        color:#292525;
+                        line-height:20px">&nbsp;
+                            <a href="https://beta.sspai.com/u/{{.FollowFirstUserSlug}}" target="_blank" style="
+                                text-decoration: none;
+                                font-size:14px;
+                                font-family:-apple-system,BlinkMacSystemFont,PingFang-SC-Regular,Hiragino Sans GB,Microsoft Yahei,Arial,sans-serif;
+                                font-weight:500;
+                                color:rgba(74,74,74,1);
+                                line-height:20px;
+                                display: inline-block;">
+                                <label style="display: inline-block;font-weight:400;">{{.FollowFirstUserNickname}}</label>
+                            </a>&nbsp;等{{.AddFollowTotal}}人关注了你
+                        </span>
+            </div>
+        </td>
+    </tr>
+    <tr height="70"></tr>
+    <tr>
+        <td align="left"  colspan="2">
+            <div style="border-top: 2px dotted #DFDFDF"></div>
+        </td>
+    </tr>
+    {{end}}
+    {{if gt (len .Articles) 0}}
+    <tr height="50"></tr>
+    <tr>
+        <td align="left"  colspan="2">
+            <div style="padding:0 9px;">
+                <div style="display: flex;align-items: center;">
+                    <img src="https://cdn.sspai.com/temp/notice_email/assets/img/ic_power.png?v={{.Timestamp}}" width="19" height="26" alt="">
+                    <span style="display: inline-block;
+                            margin-left:9px;
+                            font-size:20px;
+                            font-family:PingFangSC-Medium;
+                            font-weight:500;
+                            color:#000000;
+                            line-height:28px;">好的内容会赢得鼓励和赞许
+                            </span>
+                </div>
+                <div style="
+                        padding: 3px 0 7px 28px;
+                        font-size:12px;
+                        font-family:-apple-system,BlinkMacSystemFont,PingFang-SC-Regular,Hiragino Sans GB,Microsoft Yahei,Arial,sans-serif;
+                        font-weight:400;
+                        color:#9B9B9B;
+                        line-height:17px;">你的文章在今天共获得了 {{.LikeArticleTotal}} 次充电！</div>
+                {{range .Articles}}
+                <div style="padding: 0 8px; display: flex; justify-content: space-between;align-items: center;">
+                    <!-- 跳转至文章地址 -->
+                    <a href="https://beta.sspai.com/post/{{.ID}}" target="_blank" style="text-decoration: none;
+                            display: inline-block;
+                            width:80%;
+                            text-align: left;
+                            font-size:14px;
+                            font-family:PingFangSC-Regular;
+                            font-weight:400;
+                            color:rgba(41,37,37,1);
+                            line-height:20px;">《{{.Title}}》</a>
+                    <span style="display: inline-block;
+                            width:20%;
+                            text-align: right;
+                            font-size:14px;
+                            font-family:PingFangSC-Semibold;
+                            font-weight:500;
+                            color:#292525;
+                            line-height:20px;">
+                            <label style="display: inline-block;
+                            font-size:20px;
+                            font-family:PingFangSC-Semibold;
+                            font-weight:600;
+                            color:#292525;
+                            line-height:25px;"> {{.LikeTotal}}&nbsp;</label>次</span>
+                </div>
+                {{end}}
+            </div>
+        </td>
+    </tr>
+    {{end}}
+    </tbody>
+</table>
+<table align="center" width="100%" border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #fff;
+    padding-top: 20px;
+    color: #434245;
+    width: 80%;
+    margin: 0 auto 63px;
+    width: 600px;
+    max-width: 600px;
+    table-layout: fixed;
+    border-collapse: collapse;
+    font-family: -apple-system,BlinkMacSystemFont,PingFang-SC-Regular,Hiragino Sans GB,Microsoft Yahei,Arial,sans-serif">
+    <tr height="100"></tr>
+    <tr>
+        <td align="left" colspan="2">
+            <div style="display: flex;">
+                <span style="font-size:16px;color:#2C2C2C;line-height:30px;">SSPAI.</span>
+                <a href="https://sspai.com" target="_blank" style="display: inline-block;padding-left:41px;padding-bottom: 62px;">
+                        <span style="width: 5%;height: auto;display: inline-block;">
+                            <img src="https://cdn.sspai.com/temp/notice_email/assets/img/sspai.png?v={{.Timestamp}}" alt="sspai"  width="30" height="30" />
+                        </span>
+                </a>
+                <a href="https://weibo.com/sspaime" target="_blank" style="display: inline-block;padding-left:30px;padding-bottom: 62px;">
+                        <span style="width: 30px;height: 30px;display: inline-block;">
+                            <img src="https://cdn.sspai.com/temp/notice_email/assets/img/weibo.png?v={{.Timestamp}}" alt="" width="30" height="30" />
+                        </span>
+                </a>
+                <a href="https://sspai.com/series/70" target="_blank" style="display: inline-block;padding-left:30px;padding-bottom: 62px;">
+                        <span style="width: 30px;height: 30px;display: inline-block;">
+                            <img src="https://cdn.sspai.com/temp/notice_email/assets/img/power+.png?v={{.Timestamp}}" alt="" width="30" height="30" />
+                        </span>
+                </a>
+                <span href="javascript:;"  style="display: inline-block;padding-left:124px">
+                        <span style="width: 86px;height: 92px;display: inline-block;">
+                            <img src="https://cdn.sspai.com/temp/notice_email/assets/img/wechat.png?v={{.Timestamp}}" alt="" width="86" height="92" />
+                        </span>
+                    </span>
+                <span style="padding-left:26px;display: inline-block">
+                        <a style="width: 127px;height: 40px; display: block;" href="https://apps.apple.com/cn/app/id1191720421" target="_blank">
+                            <img src="https://cdn.sspai.com/temp/notice_email/assets/img/Apple.png?v={{.Timestamp}}" alt="applestore" width="127" height="40" />
+                        </a>
+                        <a style="width: 127px;height: 40px;padding-top:12px;display: block;" href="https://sspai.com/page/client" target="_blank">
+                            <img src="https://cdn.sspai.com/temp/notice_email/assets/img/android.png?v={{.Timestamp}}" alt="andriol" width="127" height="40" />
+                        </a>
+                    </span>
+            </div>
 
-</script>
-<body>
-
+        </td>
+    </tr>
+</table>
+<table style="background:#F8F8F8;" width="100%"  align="center">
+    <tr><td colspan="2" height="41"></td></tr>
+    <tr>
+        <td colspan="2">
+            <div align="center">
+                <a href="https://beta.sspai.com/setting/notice" target="_blank" style="color:#4A4A4A;font-size:14px;font-weight:400;line-height:20px;text-decoration: none;">你可以通过设置来管理邮件通知</a>
+            </div>
+        </td>
+    </tr>
+    <tr><td colspan="2" height="10"></td></tr>
+    <tr>
+        <td colspan="2">
+            <div align="center" style="color:#4A4A4A;font-size:14px;font-weight:400;line-height:20px;">&#169 2013-2019 少数派</div>
+        </td>
+    </tr>
+    <tr><td colspan="2" height="132"></td></tr>
+</table>
 </body>
 </html>

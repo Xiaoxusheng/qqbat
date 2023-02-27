@@ -13,7 +13,7 @@ exports.schedule = () => {
 //设定时间推送消息
 exports.setTime = (types, res, id) => {
     try {
-        res = res.split(",")
+        res = res.split("-")
         console.log(res[0].dayOfWeek)
         if ((0 <= res[0] && res[0] <= 24) && (0 <= res[1] && res[1] <= 60)) {
             if (res[2].length < 9) {
@@ -25,7 +25,7 @@ exports.setTime = (types, res, id) => {
                 hour,
                 min,
                 user_id,
-                data: data + "(消息为qq机器人自动推送)",
+                data,
                 types: "private",
                 id: id
 

@@ -90,18 +90,29 @@ exports.groupsreceive = (data) => {
             const number = JSON.parse(readFileSync("../config.json"))
             SendMessage.SendMessage(data.message_type, `已发消息|${number.chatmessagenumber}`, data.group_id)
         }
-        if(data.message.includes("画图")){
-           chatgpt.chatgpt("group",data.group_id,data.message)
+        if (data.message.includes("画图")) {
+            chatgpt.getimg("group", data.group_id, data.message)
         }
         if (data.message.includes("CQ:image")) {
             messagedeal.gettext(data)
+        }
+        if(data.message.includes("关闭机器人")||data.message.includes("打开机器人")){
+            const datas= JSON.parse(readFileSync("../config.json"))
+            datas.group_swith=!datas.group_swith
+            writeFileSync("../config.json",JSON.stringify(datas))
+            SendMessage.SendMessage(data.message_type, `机器人${datas.group_swith?"打开":"关闭"}`, data.group_id)
         }
         chatgpt.chatgpt(data.message_type, data.group_id, data.message_id, data.message)
     } else {
         if (data.message.includes("关闭")) {
             return;
         } else {
-            chatgpt.chatgpt(data.message_type, data.group_id, data.message_id, data.message)
+            const datas= JSON.parse(readFileSync("../config.json"))
+            if(datas.group_swith){
+                chatgpt.chatgpt(data.message_type, data.group_id, data.message_id, data.message)
+                return;
+            }
+
         }
         if (data.message.includes("视频")) {
             getVideo.getVideo(data.message_type, data.group_id)

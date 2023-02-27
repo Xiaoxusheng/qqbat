@@ -56,7 +56,7 @@ exports.getimg = async (types, id, propmt) => {
         });
         image_url = response.data.data[0].url;
         // console.log(image_url)
-        fs.writeFileSync("chatgpt.txt", "Human:" + propmt + "\n" + image_url)
+        // fs.writeFileSync("chatgpt.txt", "Human:" + propmt + "\n" + image_url)
         await SendMessage.SendMessage(types, `[CQ:image,file=${image_url}]`, id)
 
     } catch (e) {
