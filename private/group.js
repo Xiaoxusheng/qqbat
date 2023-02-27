@@ -13,7 +13,6 @@ exports.groupsreceive = (data) => {
 
     console.log(data.message)
     console.log(data.sender.nickname === "Ra")
-
     // 判断是否有新成员
     let groupList1 = fs.readFileSync("./private/group.json").toString()
     if (groupList1 === "") {
@@ -90,6 +89,9 @@ exports.groupsreceive = (data) => {
         if (data.message.includes("消息数")) {
             const number = JSON.parse(readFileSync("../config.json"))
             SendMessage.SendMessage(data.message_type, `已发消息|${number.chatmessagenumber}`, data.group_id)
+        }
+        if(data.message.includes("画图")){
+           chatgpt.chatgpt("group",data.group_id,data.message)
         }
         if (data.message.includes("CQ:image")) {
             messagedeal.gettext(data)
