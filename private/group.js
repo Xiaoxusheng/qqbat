@@ -96,19 +96,19 @@ exports.groupsreceive = (data) => {
         if (data.message.includes("CQ:image")) {
             messagedeal.gettext(data)
         }
-        if(data.message.includes("关闭机器人")||data.message.includes("打开机器人")){
-            const datas= JSON.parse(readFileSync("../config.json"))
-            datas.group_swith=!datas.group_swith
-            writeFileSync("../config.json",JSON.stringify(datas))
-            SendMessage.SendMessage(data.message_type, `机器人${datas.group_swith?"打开":"关闭"}`, data.group_id)
+        if (data.message.includes("关闭机器人") || data.message.includes("打开机器人")) {
+            const datas = JSON.parse(readFileSync("../config.json"))
+            datas.group_swith = !datas.group_swith
+            writeFileSync("../config.json", JSON.stringify(datas))
+            SendMessage.SendMessage(data.message_type, `机器人${datas.group_swith ? "打开" : "关闭"}`, data.group_id)
         }
         chatgpt.chatgpt(data.message_type, data.group_id, data.message_id, data.message)
     } else {
         if (data.message.includes("关闭")) {
             return;
         } else {
-            const datas= JSON.parse(readFileSync("../config.json"))
-            if(datas.group_swith){
+            const datas = JSON.parse(readFileSync("../config.json"))
+            if (datas.group_swith) {
                 chatgpt.chatgpt(data.message_type, data.group_id, data.message_id, data.message)
                 return;
             }

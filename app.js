@@ -3,6 +3,7 @@ const schedule = require("QQbat/utility/schedule_scheduleJob");
 const {readFileSync, writeFileSync} = require("fs");
 const list = [3096407768, 2195986238]
 const i = Math.round(Math.random(0, 1))
+
 //监听消息
 
 //初始化连接
@@ -14,6 +15,7 @@ schedule.scheduleJob({hour: 0, minute: 0, second: 0}, function () {
     respset.chatmessagenumber = 0
     writeFileSync("config.json", JSON.stringify(respset))
 });
+
 
 
 
