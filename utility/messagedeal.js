@@ -64,27 +64,7 @@ exports.banchat = async (group_id, user_id, duration) => {
 
 }
 //群成员列表
-exports.get_group_member_list = async (group_id) => {
-    try {
-        const res = await axios({
-            method: "get",
-            url: "http://127.0.0.1:5000/get_group_member_list",
-            params: {
-                group_id
-            }
-        })
-        console.log(res.data.data)
-        fs.writeFileSync("../private/groupList.json", res.data.data)
 
-
-    } catch (e) {
-        if (e) {
-            console.log(e)
-        }
-
-    }
-
-}
 
 //防撤回
 exports.banrecall = async ({notice_type, operator_id, message_id, user_id, group_id}) => {

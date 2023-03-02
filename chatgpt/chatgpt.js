@@ -13,21 +13,23 @@ const openai = new OpenAIApi(configuration);
 // font":0,"sender":{"age":0,"nickname":"Ra","sex":"unknown","user_id":3096407768},"message_id":-1073489619,"user_id":3096407768}
 exports.chatgpt = async (types, id, message_id, propmt) => {
     try {
-        let data = readFileSync("chatgpt.txt").toString()
-        const completion = await openai.createCompletion({
-            model: "text-davinci-003",
-            temperature: 0.4,
+        let data =JSON.parse( readFileSync("chatgpt.json"))
+        data.push({role: "user", content: `${propmt}`})
+        const completion = await openai.createChatCompletion({
+            model: "gpt-3.5-turbo",
+            messages: data,
+            temperature: 0.0,
             max_tokens: 1000,
             top_p: 1,
             frequency_penalty: 0,
             presence_penalty: 0.6,
-            stop: [" Human:", " AI:"],
-            prompt: data + "Human:" + propmt,
+            // stop: [" Human:", " AI:"],
+            // prompt: data + "Human:" + propmt,
         });
-        console.log(completion.data.choices[0]);
-        let resopone = completion.data.choices[0].text.replace("/\n\t\\\\b/g", "")
-        writeFileSync("chatgpt.txt", "The following is a conversation with an AI assistant. The assistant is helpful, creative, clever, and very friendly.\n\nHuman: Hello, who are you?\nAI: I am an AI created by OpenAI. How can I help you today?\nHuman: " + propmt + "\n" + resopone + "\n")
-        resopone = resopone.replace("AI:", "")
+        console.log(completion.data.choices[0].message);
+        let resopone = completion.data.choices[0].message.content.replace("/\n\t\\\\b/g", "")
+        resUser=[{role: "user", content: `${propmt}`}].push(completion.data.choices[0].message)
+        writeFileSync("chatgpt.json",JSON.stringify(resUser) )
         // console.log(resopone)
         // 回复消息
         if (types === "private") {
@@ -56,7 +58,7 @@ exports.getimg = async (types, id, propmt) => {
         });
         image_url = response.data.data[0].url;
         // console.log(image_url)
-        // fs.writeFileSync("chatgpt.txt", "Human:" + propmt + "\n" + image_url)
+        // fs.writeFileSync("chatgpt.json", "Human:" + propmt + "\n" + image_url)
         await SendMessage.SendMessage(types, `[CQ:image,file=${image_url}]`, id)
 
     } catch (e) {

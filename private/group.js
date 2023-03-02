@@ -13,23 +13,9 @@ exports.groupsreceive = (data) => {
 
     console.log(data.message)
     console.log(data.sender.nickname === "Ra")
-    // 判断是否有新成员
-    let groupList1 = fs.readFileSync("./private/group.json").toString()
-    if (groupList1 === "") {
-        messagedeal.get_group_member_list(data.group_id)
-        return;
-    }
-    groupList1 = JSON.parse(groupList1)
-    messagedeal.get_group_member_list(data.group_id)
-    let groupList2 = JSON.parse(fs.readFileSync("./private/group.json"))
-    if (groupList1 !== groupList2) {
-        for (let i = 0; i < groupList1.length; i++) {
-            if (groupList1[i].user_id !== groupList1[i].user_id) {
-                SendMessage.SendMessage(data.message_type, "欢迎新成员[CQ:at,qq=" + groupList2.user_id + "]", data.group_id)
-            }
-        }
+    //
 
-    }
+
 
 
     // {"post_type":"message","message_type":"group",

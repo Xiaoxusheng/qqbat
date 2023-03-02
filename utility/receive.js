@@ -26,7 +26,29 @@ exports.receive = (data) => {
         sendmessage.SendMessage("group", `[CQ:poke,qq=${data.sender_id}]`, data.group_id,)
         return;
     }
+    /*群成员退出
+* {"post_type":"notice","notice_type":"group_decrease","time":1677764209,"self_id":2673893724,
+* "sub_type":"leave","group_id":682671449,"operator_id":3096407768,"user_id":3096407768}*/
 
+    /*群成员加入
+    *  {"post_type":"notice","notice_type":"group_increase","time":1677764267,
+    * "self_id":2673893724,"sub_type":"approve","group_id":682671449,"operator_id":0,"user_id":3096407768}*/
+
+    if (data.post_type === "notice" && data.notice_type === "group_decreas") {
+        if(data.notice_type === "group_decreas"){
+            //退群
+            SendMessage.SendMessage("group", `[CQ:at,qq=${data.user_id}]退出群聊`, data.group_id)
+
+        }else if(data.notice_type === "group_increase") {
+            //进群
+            SendMessage.SendMessage("group", `欢迎新成员[CQ:at,qq=${data.user_id}]`, data.group_id)
+        }
+
+    }
+    //进群
+    // if (data.post_type === "notice" && data.notice_type === "group_increase") {
+    //     SendMessage.SendMessage("group", `欢迎新成员[CQ:at,qq=${data.user_id}]`, data.group_id)
+    // }
     if (data.message) {
         //已读消息
         read.read(data.message_id)
