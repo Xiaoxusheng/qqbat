@@ -13,7 +13,7 @@ const openai = new OpenAIApi(configuration);
 // font":0,"sender":{"age":0,"nickname":"Ra","sex":"unknown","user_id":3096407768},"message_id":-1073489619,"user_id":3096407768}
 exports.chatgpt = async (types, id, message_id, propmt) => {
     try {
-        let data =JSON.parse( readFileSync("chatgpt.json"))
+        let data = JSON.parse(readFileSync("chatgpt.json"))
         data.push({role: "user", content: `${propmt}`})
         const completion = await openai.createChatCompletion({
             model: "gpt-3.5-turbo",
@@ -28,8 +28,8 @@ exports.chatgpt = async (types, id, message_id, propmt) => {
         });
         console.log(completion.data.choices[0].message);
         let resopone = completion.data.choices[0].message.content.replace("/\n\t\\\\b/g", "")
-        resUser=[{role: "user", content: `${propmt}`}].push(completion.data.choices[0].message)
-        writeFileSync("chatgpt.json",JSON.stringify(resUser) )
+        resUser = [{role: "user", content: `${propmt}`}].push(completion.data.choices[0].message)
+        writeFileSync("chatgpt.json", JSON.stringify(resUser))
         // console.log(resopone)
         // 回复消息
         if (types === "private") {

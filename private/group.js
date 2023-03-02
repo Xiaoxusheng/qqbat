@@ -16,8 +16,6 @@ exports.groupsreceive = (data) => {
     //
 
 
-
-
     // {"post_type":"message","message_type":"group",
     //     "time":1677149263,"self_id":2673893724,"sub_type":"normal","anonymous":null,"message":"你好","" +
     // "sender":{"age":0,"area":"","card":"","level":"","nickname":"Ra","role":"member","sex":"unknown","title":"","user_id":3096407768},

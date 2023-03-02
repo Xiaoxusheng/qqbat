@@ -133,7 +133,7 @@ console.log(config.manager[0])
 //     })
 //     console.log(res)
 // }
-async function  get(){
+async function get() {
 
 
     const completion = await openai.createChatCompletion({
@@ -144,6 +144,7 @@ async function  get(){
 
 
 }
+
 get()
 
 

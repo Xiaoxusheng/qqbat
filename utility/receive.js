@@ -35,11 +35,11 @@ exports.receive = (data) => {
     * "self_id":2673893724,"sub_type":"approve","group_id":682671449,"operator_id":0,"user_id":3096407768}*/
 
     if (data.post_type === "notice" && data.notice_type === "group_decreas") {
-        if(data.notice_type === "group_decreas"){
+        if (data.notice_type === "group_decreas") {
             //退群
             SendMessage.SendMessage("group", `[CQ:at,qq=${data.user_id}]退出群聊`, data.group_id)
 
-        }else if(data.notice_type === "group_increase") {
+        } else if (data.notice_type === "group_increase") {
             //进群
             SendMessage.SendMessage("group", `欢迎新成员[CQ:at,qq=${data.user_id}]`, data.group_id)
         }
