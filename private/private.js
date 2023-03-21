@@ -8,23 +8,23 @@ const chatgpt = require("../chatgpt/chatgpt")
 
 exports.privates = (data) => {
     let status = readFileSync("./status.txt").toString()
-    let list = ["f", "img", "chat", "t", "y", "h", "w"]
+    let list = ["f", "img", "chat", "t", "y", "h", "w","v"]
     let model = true
     if (status) {
         while (model) {
             if (list.includes(data.message)) {
-                writeFileSync("./status.txt", data.message)
+                writeFileSync("status.txt", data.message)
                 SendMessage(data.message_type, "模式更改为: " + data.message, data.user_id)
             }
             if (data.message === "y") {
-                writeFileSync("./status.txt", "")
+                writeFileSync("status.txt", "")
                 SendMessage(data.message_type, "模式重置: ", data.user_id)
 
                 SendMessage("[CQ:at,qq=" + data.user_id + "]" + "\n" + "请选择：" + "\n" + "重置模式: (y)" + "\n" + "天气模式：(t 例：武汉的天气)" + "\n" + "聊天模式：(chat)" + "\n" + "图片模式: (img)" + "\n" + "今日新闻：(f) " + "\n" + "看抖音视频：(v)" + "\n" + "(y,t,chat,img 全局生效)\n", data.user_id)
             }
             break
         }
-        status = readFileSync("./status.txt").toString()
+        status = readFileSync("status.txt").toString()
 
         switch (status) {
             case "chat":
@@ -32,7 +32,7 @@ exports.privates = (data) => {
                     return;
                 }
                 if (data.message.includes("消息数")) {
-                    const number = JSON.parse(readFileSync("../config.json"))
+                    const number = JSON.parse(readFileSync("config.json"))
                     SendMessage.SendMessage(data.message_type, `已发消息|${number.chatmessagenumber}`, data.group_id)
                 }
                 // send.QQcaht(data.message_type, data.user_id, data.message)
@@ -69,6 +69,12 @@ exports.privates = (data) => {
                 }
                 getclass.getclass(data.message_type, data.message, data.user_id)
                 break
+            case "v":
+                if (data.message === status) {
+                    return;
+                }
+                getmessage.getVideo(data.message_type, data.user_id)
+                break
             // default:
             //     sendmessage.SendMessage(data.message_type,
             //         "模式已选择:" +
@@ -84,7 +90,7 @@ exports.privates = (data) => {
             SendMessage(data.message_type, "[CQ:at,qq=" + data.user_id + "]" + "\n" + "请选择：" + "\n" + "重置模式: (y)" + "\n" + "天气模式：(t 例：武汉的天气)" + "\n" + "聊天模式：(chat)" + "\n" + "图片模式: (img)" + "\n" + "今日新闻：(f) " + "\n" + "消息推送：(h 例 12,4,3096407768,早早早) " + "\n" + "看抖音视频：(v)" + "\n" + "(y,t,chat,img 全局生效)\n"
 
                 , data.user_id)
-            writeFileSync("./status.txt", "")
+            writeFileSync("status.txt", "")
             return
         }
 
@@ -92,7 +98,7 @@ exports.privates = (data) => {
             SendMessage(data.message_type, "已处于重置模式", data.user_id)
             return
         }
-        writeFileSync("./status.txt", data.message)
+        writeFileSync("status.txt", data.message)
         SendMessage(data.message_type, "模式更改为: " + data.message, data.user_id)
 
 

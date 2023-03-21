@@ -1,4 +1,4 @@
-const Sendmessage = require("../Websocket/send")
+const sendMessage = require("../Websocket/send")
 const axios = require("axios");
 const {readFile, writeFile} = require("fs");
 let weather, hot, str = '', filestr
