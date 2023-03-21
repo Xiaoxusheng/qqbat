@@ -113,39 +113,8 @@ console.log(config.manager[0])
 //     }
 // }
 //
-//
-//
-//
-//
-//
-//
-//今天的时间戳
-// console.log(new Date(new Date().toLocaleDateString()).getTime())
-// console.log(new Date().toLocaleDateString())
-// console.log(Date.now())
-// gettext = async () => {
-//     const res = await axios({
-//         url: "http://127.0.0.1:5000/ocr_image",
-//         method: "get",
-//         params: {
-//             image: 1190212098
-//         }
-//     })
-//     console.log(res)
-// }
-async function get() {
 
 
-    const completion = await openai.createChatCompletion({
-        model: "gpt-3.5-turbo",
-        messages: [{role: "user", content: "写一首500字作文"}],
-    });
-    console.log(completion.data.choices[0].message);
-
-
-}
-
-get()
 
 
 
