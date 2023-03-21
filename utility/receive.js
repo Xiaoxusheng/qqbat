@@ -5,13 +5,17 @@ const group = require("../private/group")
 const privatrchat = require("../private/private")
 const messagedeal = require("./messagedeal");
 const chatgpt = require("../chatgpt/chatgpt");
+const addfriends=require("./addfriends")
 
 
 //处理消息函数
 exports.receive = (data) => {
     //数据验证
-    chatgpt.moderations(data.message_type, data.message, data.user_id)
-
+    // chatgpt.moderations(data.message_type, data.message, data.user_id)
+ //自动添加好友
+ if(data.post_type==="request"&&data.request_type==="friend"){
+     addfriends.addfriends(data)
+ }
     if (data.message_type === "undefined" || data.message === "undefined") {
         schedule_scheduleJob.schedule(data.user_id)
         return

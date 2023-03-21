@@ -3,7 +3,7 @@
 [![Security Status](https://www.murphysec.com/platform3/v3/badge/1618401806711816193.svg?t=1)](https://www.murphysec.com/accept?code=380c02bae038e8e0b24e796b27efb536&type=1&from=2&t=2)
 ### 基于go-cqhttp与JavaScript 语言实现
 [![OSCS Status](https://www.oscs1024.com/platform/badge/qqbat.svg?size=small)](https://www.murphysec.com/accept?code=1767a4da4c3d58db34dccbb2cfadf50f&type=1&from=2)
-
+[![GitHub stars](https://img.shields.io/github/stars/{Xiaoxusheng}/{qqbat}.svg?style=social&label=Star)](https://github.com/{Xiaoxusheng}/{qqbat})
 
 ### 1 功能如下
 - [x] 私聊
