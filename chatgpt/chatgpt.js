@@ -99,15 +99,15 @@ exports.moderations = async (types, input, id) => {
 }
 
 exports.chatgpts = async (types, id, propmt) => {
-   try {
-       const {data:res} =await axios({
-           method: "post",
-           url: "http://8.134.94.2/api",
-           data: {messages: [{role: "user", content: propmt}], temperature: 0.6}
-       })
-       console.log(res)
-       await SendMessage.SendMessage(types, res, id)
-   }catch (e) {
-       await SendMessage.SendMessage(types, "出错了", id)
-   }
+    try {
+        const {data: res} = await axios({
+            method: "post",
+            url: "http://8.134.94.2/api",
+            data: {messages: [{role: "user", content: propmt}], temperature: 0.6}
+        })
+        console.log(res)
+        await SendMessage.SendMessage(types, res, id)
+    } catch (e) {
+        await SendMessage.SendMessage(types, "出错了", id)
+    }
 }
