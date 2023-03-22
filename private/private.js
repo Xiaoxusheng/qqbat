@@ -7,8 +7,8 @@ const chatgpt = require("../chatgpt/chatgpt")
 
 
 exports.privates = (data) => {
-    let status = readFileSync("./status.txt").toString()
-    let list = ["f", "img", "chat", "t", "y", "h", "w","v"]
+    let status = readFileSync("status.txt").toString()
+    let list = ["f", "img", "chat", "t", "y", "h", "w", "v"]
     let model = true
     if (status) {
         while (model) {
@@ -19,8 +19,16 @@ exports.privates = (data) => {
             if (data.message === "y") {
                 writeFileSync("status.txt", "")
                 SendMessage(data.message_type, "模式重置: ", data.user_id)
-
-                SendMessage("[CQ:at,qq=" + data.user_id + "]" + "\n" + "请选择：" + "\n" + "重置模式: (y)" + "\n" + "天气模式：(t 例：武汉的天气)" + "\n" + "聊天模式：(chat)" + "\n" + "图片模式: (img)" + "\n" + "今日新闻：(f) " + "\n" + "看抖音视频：(v)" + "\n" + "(y,t,chat,img 全局生效)\n", data.user_id)
+                SendMessage(data.message_type,"[CQ:at,qq=" + data.user_id + "]" + "\n"
+                    + "请选择：" + "\n"
+                    + "重置模式: 【y】" + "\n"
+                    + "天气模式：【t 例：武汉的天气】⚡️" + "\n"
+                    + "聊天模式：【chat】🐼" + "\n"
+                    + "图片模式: 【img】☂️" + "\n"
+                    + "今日新闻：【f】  🎈" + "\n"
+                    + "看抖音视频：【v】 🚀"  + "\n"
+                    + "查课表 【w 第三周 3】🤔"
+                    + "【y,t,chat,img 全局生效】❤️\n", data.user_id)
             }
             break
         }
@@ -87,15 +95,23 @@ exports.privates = (data) => {
         if (!list.includes(data.message)) {
             SendMessage(data.message_type, "[CQ:record,file=XXX]", data.user_id)
             SendMessage(data.message_type, "输入的不对呦，靓仔", data.user_id)
-            SendMessage(data.message_type, "[CQ:at,qq=" + data.user_id + "]" + "\n" + "请选择：" + "\n" + "重置模式: (y)" + "\n" + "天气模式：(t 例：武汉的天气)" + "\n" + "聊天模式：(chat)" + "\n" + "图片模式: (img)" + "\n" + "今日新闻：(f) " + "\n" + "消息推送：(h 例 12,4,3096407768,早早早) " + "\n" + "看抖音视频：(v)" + "\n" + "(y,t,chat,img 全局生效)\n"
-
+            SendMessage(data.message_type, "[CQ:at,qq=" + data.user_id + "]" + "\n"
+                + "请选择：" + "\n"
+                + "重置模式: 【y】" + "\n"
+                + "天气模式：【t 例：武汉的天气】⚡️" + "\n"
+                + "聊天模式：【chat】🐼" + "\n"
+                + "图片模式: 【img】☂️" + "\n"
+                + "今日新闻：【f】 🎈 " + "\n"
+                + "看抖音视频：【v】🚀 "  + "\n"
+                + "查课表 【w 第三周 3】🤔"
+                + "【y,t,chat,img 全局生效】❤️\n"
                 , data.user_id)
             writeFileSync("status.txt", "")
             return
         }
 
         if (data.message === "y") {
-            SendMessage(data.message_type, "已处于重置模式", data.user_id)
+            SendMessage(data.message_type, "已处于重置模式❤️", data.user_id)
             return
         }
         writeFileSync("status.txt", data.message)

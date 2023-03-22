@@ -3,16 +3,14 @@ const {readFileSync, writeFileSync} = require("fs");
 const SendMessage = require("../Websocket/send")
 const fs = require("fs");
 const axios = require("axios");
-const token = JSON.parse(readFileSync("../appkey.json"))
+const token = JSON.parse(readFileSync("appkey.json"))
 const configuration = new Configuration({
     apiKey: token.apikey,
 });
 const openai = new OpenAIApi(configuration);
-//{"post_type":"message","message_type":"private","time":1676870513,"self_id":2673893724,"sub_type":"friend","target_id":2673893724,"message":"，23","raw_message":"，23","
-// font":0,"sender":{"age":0,"nickname":"Ra","sex":"unknown","user_id":3096407768},"message_id":-1073489619,"user_id":3096407768}
 exports.chatgpt = async (types, id, message_id, propmt) => {
     try {
-        let data = JSON.parse(readFileSync("chatgpt.json"))
+        let data = JSON.parse(readFileSync("../chatgpt/chatgpt.json"))
         data.push({role: "user", content: `${propmt}`})
         const completion = await openai.createChatCompletion({
             model: "gpt-3.5-turbo",
@@ -42,10 +40,7 @@ exports.chatgpt = async (types, id, message_id, propmt) => {
             await await SendMessage.SendMessage(types, `chatgpt机器人出错了,错误在:${e}`, id,)
         }
     }
-
-
 }
-
 //  prompt: "The following is a conversation with an AI assistant. The assistant is helpful, creative, clever, and very friendly.\n\nHuman: Hello, who are you?\nAI: I am an AI created by OpenAI. How can I help you today?\nHuman: 写一首诗\n\n花开时百色缤纷 春的温度醉我心\n无尽的想象伴随翱翔 尽牵动我晨夕思\n红叶落下无久别 尘世曲与尚未完\n而你何品芳华流离尽 天上月影跟随我心",
 exports.getimg = async (types, id, propmt) => {
     try {

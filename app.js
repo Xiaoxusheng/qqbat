@@ -2,11 +2,6 @@ const ws = require("./Websocket/ws")
 // const schedule = require("QQbat/utility/schedule_scheduleJob");
 const schedule = require("node-schedule");
 const {readFileSync, writeFileSync} = require("fs");
-const list = [3096407768, 2195986238]
-const i = Math.round(Math.random(0, 1))
-
-//监听消息
-
 //初始化连接
 ws.wsclint()
 
