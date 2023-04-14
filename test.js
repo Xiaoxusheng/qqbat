@@ -1,5 +1,5 @@
 function time() {
-  let  date = new Date()
+    let date = new Date()
     console.log(date)
     // 将日期设置为当年的4月1日
     const firstDayOfYear = new Date('2023-02-06').getTime()
@@ -11,8 +11,8 @@ function time() {
     const weekNumber = Math.ceil(dayOfYear / 7);
     console.log(weekNumber)
 }
+
 time()
 
 
-
-console.log(typeof (1)==="number")
+console.log(typeof (1) === "number")
