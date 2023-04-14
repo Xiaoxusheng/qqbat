@@ -5,8 +5,6 @@ const chatgpt = require("../chatgpt/chatgpt")
 const messagedeal = require("../utility/messagedeal")
 const {readFileSync, writeFileSync} = require("fs");
 const config = require("../config.json")
-const sendmessage = require("../Websocket/send");
-
 
 //处理群消息逻辑函数
 exports.groupsreceive = (data) => {
@@ -39,7 +37,7 @@ exports.groupsreceive = (data) => {
         }
         if (data.message.includes("关闭防撤功能") || data.message.includes("打开防撤功能")) {
             try {
-                const res = JSON.parse(readFileSync("../config.json"))
+                const res = JSON.parse(readFileSync("config.json"))
                 if (res.recallswith && data.message.includes("打开防撤功能")) {
                     SendMessage.SendMessage(data.message_type, "当前已经打开,请不要重复打开", data.group_id)
                     return;
@@ -49,7 +47,7 @@ exports.groupsreceive = (data) => {
                     return;
                 }
                 res.recallswith = !res.recallswith
-                writeFileSync("../config.json", JSON.stringify(res))
+                writeFileSync("config.json", JSON.stringify(res))
                 SendMessage.SendMessage(data.message_type, `防撤功能更改成功|：：当前撤功能${res.recallswith ? "打开" : "关闭"}`, data.group_id)
             } catch (e) {
                 SendMessage.SendMessage(data.message_type, "防撤回功能更改失败", data.group_id)
@@ -71,7 +69,7 @@ exports.groupsreceive = (data) => {
             messagedeal.recall(data.message_type, data.group_id, data.message_id)
         }
         if (data.message.includes("消息数")) {
-            const number = JSON.parse(readFileSync("../config.json"))
+            const number = JSON.parse(readFileSync("config.json"))
             SendMessage.SendMessage(data.message_type, `已发消息|${number.chatmessagenumber}`, data.group_id)
         }
         if (data.message.includes("画图")) {
@@ -81,17 +79,17 @@ exports.groupsreceive = (data) => {
             messagedeal.gettext(data)
         }
         if (data.message.includes("关闭机器人") || data.message.includes("打开机器人")) {
-            const datas = JSON.parse(readFileSync("../config.json"))
+            const datas = JSON.parse(readFileSync("config.json"))
             datas.group_swith = !datas.group_swith
-            writeFileSync("../config.json", JSON.stringify(datas))
+            writeFileSync("config.json", JSON.stringify(datas))
             SendMessage.SendMessage(data.message_type, `机器人${datas.group_swith ? "打开" : "关闭"}`, data.group_id)
         }
-        chatgpt.chatgpt(data.message_type, data.group_id, data.message_id, data.message)
+        // chatgpt.chatgpt(data.message_type, data.group_id, data.message_id, data.message)
     } else {
         if (data.message.includes("关闭")) {
             return;
         } else {
-            const datas = JSON.parse(readFileSync("../config.json"))
+            const datas = JSON.parse(readFileSync("config.json"))
             if (datas.group_swith) {
                 chatgpt.chatgpt(data.message_type, data.group_id, data.message_id, data.message)
                 return;

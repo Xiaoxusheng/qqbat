@@ -1,7 +1,6 @@
 const {Configuration, OpenAIApi} = require("openai");
 const {readFileSync, writeFileSync} = require("fs");
 const SendMessage = require("../Websocket/send")
-const fs = require("fs");
 const axios = require("axios");
 const token = JSON.parse(readFileSync("appkey.json"))
 const configuration = new Configuration({
@@ -26,7 +25,7 @@ exports.chatgpt = async (types, id, message_id, propmt) => {
         console.log(completion.data.choices[0].message);
         let resopone = completion.data.choices[0].message.content.replace("/\n\t\\\\b/g", "")
         resUser = [{role: "user", content: `${propmt}`}].push(completion.data.choices[0].message)
-        writeFileSync("chatgpt.json", JSON.stringify(resUser))
+        writeFileSync("../chatgpt/chatgpt.jsonn", JSON.stringify(resUser))
         // console.log(resopone)
         // 回复消息
         if (types === "private") {
@@ -93,16 +92,5 @@ exports.moderations = async (types, input, id) => {
     }
 }
 
-exports.chatgpts = async (types, id, propmt) => {
-    try {
-        const {data: res} = await axios({
-            method: "post",
-            url: "http://8.134.94.2/api",
-            data: {messages: [{role: "user", content: propmt}], temperature: 0.6}
-        })
-        console.log(res)
-        await SendMessage.SendMessage(types, res, id)
-    } catch (e) {
-        await SendMessage.SendMessage(types, "出错了", id)
-    }
-}
+
+

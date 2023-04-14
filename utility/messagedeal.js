@@ -68,7 +68,7 @@ exports.banchat = async (group_id, user_id, duration) => {
 
 //防撤回
 exports.banrecall = async ({notice_type, operator_id, message_id, user_id, group_id}) => {
-    let res = JSON.parse(fs.readFileSync("../config.json"))
+    let res = JSON.parse(fs.readFileSync("config.json"))
     if (!res.recallswith) {
         return
     }

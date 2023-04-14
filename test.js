@@ -1,28 +1,18 @@
-// const {WebSocketServer} = require("ws")
-// var twoSum = function(nums, target) {
-//     for(let i=0;i<nums.length;i++ ){
-//         for(let j=i+1;j<=nums.length-1;j++){
-//             console.log(nums[i]+nums[j])
-//             if(nums[i]+nums[j]===target){
-//                 return `[${i},${j}]`
-//             }
-//
-//         }
-//     }
-//     return "[]"
-// };
-// console.log(twoSum([1,85,38,3,1],4))
-// const WebSocket=require("ws")  ;
-//
-// const ws = new WebSocket('ws://127.0.0.1:8080/user/websocket');
-//
-// ws.on('error', console.error);
-//
-// ws.on('open', function open() {
-//     ws.send('我来了');
-// });
-//
-// ws.on('message', function message(data) {
-//     console.log('received: %s', data);
-// });
+function time() {
+  let  date = new Date()
+    console.log(date)
+    // 将日期设置为当年的4月1日
+    const firstDayOfYear = new Date('2023-02-06').getTime()
+    // 计算日期与当年4月1日的时间差
+    const timeDiff = date - firstDayOfYear;
+    // 计算时间差对应的天数
+    const dayOfYear = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+    // 计算当前日期属于第几周
+    const weekNumber = Math.ceil(dayOfYear / 7);
+    console.log(weekNumber)
+}
+time()
 
+
+
+console.log(typeof (1)==="number")

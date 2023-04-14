@@ -3,7 +3,7 @@ const {writeFileSync, readFileSync} = require("fs");
 const sendMessage = require("../Websocket/send")
 const config = require("../config.json")
 
-let str = "", str1 = ""
+
 
 //获取cookie
 async function getCookie(types, id) {
@@ -14,8 +14,8 @@ async function getCookie(types, id) {
             method: "get",
             url: "https://passport2.chaoxing.com/api/login",
             params: {
-                // name: 账号,
-                // pwd:密码
+                 // name: 电话号,
+                 // pwd:"密码"
             },
             withCredentials: true,
             headers: {
@@ -30,7 +30,7 @@ async function getCookie(types, id) {
             for (let i of res.headers["set-cookie"]) {
                 cookie.push(i.slice(0, i.indexOf(";")))
             }
-            console.log(cookie)
+            // console.log(cookie)
             return cookie
         } else {
             return ""
@@ -41,28 +41,23 @@ async function getCookie(types, id) {
         await sendMessage.SendMessage(types, `获取cookie出错,错误为:${e}`, id)
         return ""
     }
-
-
 }
 
 exports.getclass = async (types, week,id,) => {
+    let str = ""
+    let  date = new Date()
+    // console.log(date)
+    // 将日期设置为当年的2月6日
+    const firstDayOfYear = new Date('2023-02-06').getTime()
+    // 计算日期与当年2月6日的时间差
+    const timeDiff = date - firstDayOfYear;
+    // 计算时间差对应的天数
+    const dayOfYear = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+    // 计算当前日期属于第几周
+    const weekNumber = Math.ceil(dayOfYear / 7);
     const cookie = await getCookie(types, id)
     if (week < 2 || week > 19) {
         await sendMessage.SendMessage(types, "没课啊靓仔", id)
-        return
-    }
-
-    if (config.week === week) {
-        let resp = JSON.parse(readFileSync("../class.json"))
-        console.log(resp)
-        let j = resp.sort((a, b) => {
-            return a.dayOfWeek - b.dayOfWeek
-        })
-        j.forEach(i => {
-            str1 += "周[" + i.dayOfWeek + "]" + "课程[" + i.name + "]" + "节次[" + i.beginNumber + "-" + (i.beginNumber + 1) + "]" + "教室[" + i.location + "]" + "任课教师[" + i.teacherName + "]" + "\n"
-            console.log("周[" + i.dayOfWeek + "]" + "课程[" + i.name + "]" + "节次[" + i.beginNumber + "-" + (i.beginNumber + 1) + "]" + "教室[" + i.location + "]" + "任课教师[" + i.teacherName + "]")
-        })
-        await sendMessage.SendMessage(types, str1, id)
         return
     }
     try {
@@ -70,7 +65,7 @@ exports.getclass = async (types, week,id,) => {
             method: "get",
             url: "https://kb.chaoxing.com/pc/curriculum/getMyLessons",
             params: {
-                week: week
+                week:  typeof (week)==="number"? week:weekNumber
             },
             withCredentials: true,
             headers: {
@@ -79,21 +74,17 @@ exports.getclass = async (types, week,id,) => {
                 Cookie: cookie
             },
         })
-        console.log(res.data)
         writeFileSync("class.json", JSON.stringify(res.data.lessonArray))
         let k = res.data.lessonArray.sort((a, b) => {
             return a.dayOfWeek - b.dayOfWeek
         })
         // console.log(k)
         k.forEach(i => {
-            str += "周[" + i.dayOfWeek + "]" + "课程[" + i.name + "]" + "节次[" + i.beginNumber + "-" + (i.beginNumber + 1) + "]" + "教室[" + i.location + "]" + "任课教师[" + i.teacherName + "]" + "\n"
+            str += "周" + i.dayOfWeek + "\n"+"课程[" + i.name + "]" +"\n"+ "节次[" + i.beginNumber + "--" + (i.beginNumber + 1) + "]" +"\n"+ "教室[" + i.location + "]" + "\n"
             // console.log(str += "周[" + i.dayOfWeek + "]" + "课程[" + i.name + "]" + "节次[" + i.beginNumber + "-" + (i.beginNumber + 1) + "]" + "教室[" + i.location + "]" + "任课教师[" + i.teacherName + "]" + "\n")
         })
-        console.log(str)
+
         await sendMessage.SendMessage(types, str, id)
-        data = JSON.parse(readFileSync("config.json",))
-        data.week = week
-        writeFileSync("config.json", JSON.stringify(data))
     } catch (e) {
         await sendMessage.SendMessage(types, `输入有误:${e}`, id)
     }
