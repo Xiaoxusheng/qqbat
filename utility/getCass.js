@@ -65,7 +65,7 @@ exports.getclass = async (types, week,id,) => {
             method: "get",
             url: "https://kb.chaoxing.com/pc/curriculum/getMyLessons",
             params: {
-                week: typeof (week) === "number" ? week : weekNumber
+                week: /^\d+$/.test(week) ? week : weekNumber
             },
             withCredentials: true,
             headers: {
