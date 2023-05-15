@@ -4,7 +4,6 @@ const sendMessage = require("../Websocket/send")
 const config = require("../config.json")
 
 
-
 //获取cookie
 async function getCookie(types, id) {
     try {
@@ -43,7 +42,7 @@ async function getCookie(types, id) {
     }
 }
 
-exports.getclass = async (types, week,id,) => {
+exports.getclass = async (types, week, id,) => {
     let str = ""
     let date = new Date()
     // console.log(date)
@@ -80,7 +79,7 @@ exports.getclass = async (types, week,id,) => {
         })
         // console.log(k)
         k.forEach(i => {
-            str += "周" + i.dayOfWeek + "\n" + "课程[" + i.name + "]" + "\n" + "节次[" + i.beginNumber + "--" + (i.beginNumber + 1) + "]" + "\n" + "教室[" + i.location + "]" + "\n"
+            str += "第" + weekNumber + "周" + "\n" + "周" + i.dayOfWeek + "\n" + "课程[" + i.name + "]" + "\n" + "节次[" + i.beginNumber + "--" + (i.beginNumber + 1) + "]" + "\n" + "教室[" + i.location + "]" + "\n"
             // console.log(str += "周[" + i.dayOfWeek + "]" + "课程[" + i.name + "]" + "节次[" + i.beginNumber + "-" + (i.beginNumber + 1) + "]" + "教室[" + i.location + "]" + "任课教师[" + i.teacherName + "]" + "\n")
         })
 

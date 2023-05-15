@@ -41,7 +41,8 @@ exports.privates = (data) => {
                 }
                 if (data.message.includes("消息数")) {
                     const number = JSON.parse(readFileSync("config.json"))
-                    SendMessage.SendMessage(data.message_type, `已发消息|${number.chatmessagenumber}`, data.group_id)
+                    SendMessage.SendMessage(data.message_type, `已发消息|${number.chatmessagenumber}`, data.user_id)
+                    return;
                 }
                 // send.QQcaht(data.message_type, data.user_id, data.message)
                 chatgpt.chatgpt(data.message_type, data.user_id, data.message_id, data.message)

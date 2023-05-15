@@ -21,7 +21,7 @@ exports.groupsreceive = (data) => {
 
     if (data.user_id === config.manager[0]) {
         // console.log(data.message.includes("[CQ:at,qq=3096407768] "))注意这里的]后面有一个空格,不然会出问题
-        if (data.message.includes("[CQ:at,qq=3096407768] ")) {
+        if (data.message.includes("[CQ:at,qq=2673893724] ")) {
             SendMessage.SendMessage(data.message_type, "[CQ:at,qq=" + data.sender.user_id + "]", data.group_id,)
             SendMessage.SendMessage(data.message_type, "伟大的主人，我来了[CQ:face,id=123]，有什么吩咐", data.group_id)
         }
@@ -49,6 +49,7 @@ exports.groupsreceive = (data) => {
                 res.recallswith = !res.recallswith
                 writeFileSync("config.json", JSON.stringify(res))
                 SendMessage.SendMessage(data.message_type, `防撤功能更改成功|：：当前撤功能${res.recallswith ? "打开" : "关闭"}`, data.group_id)
+
             } catch (e) {
                 SendMessage.SendMessage(data.message_type, "防撤回功能更改失败", data.group_id)
             }

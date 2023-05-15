@@ -28,9 +28,8 @@ exports.SendMessage = async (types, weather, id) => {
             data: {
                 group_id: id,
                 message: weather,
-                auto_escape: true,
+                auto_escape: false,
             }
-
         })
         i.chatmessagenumber++;
         writeFileSync("config.json", JSON.stringify(i))

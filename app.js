@@ -1,6 +1,7 @@
 const ws = require("./Websocket/ws")
 // const schedule = require("QQbat/utility/schedule_scheduleJob");
 const schedule = require("node-schedule");
+const myclass=require('./utility/getCass')
 const {readFileSync, writeFileSync} = require("fs");
 const Path = require("path");
 //初始化连接

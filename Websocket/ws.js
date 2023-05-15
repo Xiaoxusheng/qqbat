@@ -17,4 +17,8 @@ exports.wsclint = () => {
     ws.on("close", () => {
         console.log("客户端断开连接")
     })
+    schedule.scheduleJob("01-02 * * * * * ", function () {
+        console.log("启动任务:" + new Date());
+
+    });
 }
