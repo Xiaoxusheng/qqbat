@@ -79,7 +79,7 @@
 ![img_1.png](img/img_1.png)
 ![img_3.png](img/img_3.png)
 
-#### 6.说明：
+#### 7.说明：
 
      部署到阿里云或者腾讯云服务器上查询学习通课表无法使用，学习通屏蔽了服务器ip
 
@@ -100,3 +100,8 @@
       go-cqhttp请去官网下载，仓库中只是服务端逻辑处理代码
       app.js为项目入口文件
 
+### 5.性能更高的Go语言重构中
+
+[GoBat](https://github.com/Xiaoxusheng/Go-Bat)
+
+    
